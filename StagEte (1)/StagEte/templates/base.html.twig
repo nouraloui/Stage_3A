@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Ample lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Ample admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description" content="Ample Admin Lite is powerful and clean admin dashboard template, inpired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Login</title>
+    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="espritng.png">
+    <!-- Custom CSS -->
+    <link href="plugins/bower_components/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
+    <!-- Custom CSS -->
+    <link href="css/style.min.css" rel="stylesheet">
+
+    <!-- Custom CSS for centering the form and background white -->
+    <style>
+        .page-content--bge5 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5; /* Adjust the background color as needed */
+        }
+
+        .login-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin-left: 500px;
+        }
+
+        .login-logo img {
+            max-width: 100%;
+        }
+
+        /* .login-form {
+            margin-top: 10px;
+        } */
+
+        .au-btn--block {
+            margin-top: 10%;
+            background-color: #cf0039;
+            border: none;
+            font-size: larger;
+            width: 200px;
+            margin-left: 20%;
+            color: white;
+        }
+
+        .au-btn--block:hover {
+            background-color: darkred;
+        }
+
+        .au-input--full {
+            background-color: #cf0039;
+            margin-left: 10%;
+            border: 1px solid white;
+            color: black;
+            width: 300px;
+            
+        }
+
+        .au-input--full::placeholder {
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-content">
+                        <div class="login-logo">
+                                <img src="espritng.png" alt="Esprit">
+                                <span  style="font-weight:bold ;color:red;font-size:20px;">Scolarité</span>
+                        </div>
+                        <div class="login-form">
+  <form action="{{ path('app_utilisateur_login') }}" method="post">
+    <div class="form-group">
+        <label style="font-weight:bold;">Utilisateur :</label><br>
+        <input class="au-input au-input--full" type="text" name="utilisateur" placeholder="Adresse" required>
+    </div>
+    <div class="form-group">
+        <label style="font-weight:bold;">Mot de passe :</label><br>
+        <input class="au-input au-input--full" type="password" name="mot_de_passe" placeholder="Mot de passe" required>
+    </div>
+    <div>
+    <button class="au-btn au-btn--block m-b-1" type="submit">
+        Se connecter
+    </button>
+    <a class="au-link" href="#" style="display: block; text-align: center; margin-top: 10px;" onclick="window.location.href='{{ path('app_utilisateur_forget') }}'">
+        Mot de passe oublié
+    </a>
+</div> 
+
+</form>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
+
+
+<button class="au-btn au-btn--block m-b-20" type="button" onclick="window.location.href='{{ path('app_utilisateur_new') }}';">
+    Créer un compte
+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/app-style-switcher.js"></script>
+    <script src="plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!--Wave Effects -->
+    <script src="js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="plugins/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="js/pages/dashboards/dashboard1.js"></script>
+</body>
+
+</html>

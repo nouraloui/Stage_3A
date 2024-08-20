@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compteur index{% endblock %}
+
+{% block body %}
+    <h1>Compteur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Libellé</th>
+                <th>Date de création</th>
+                <th>Dernière modification</th>
+                <th>Taille</th>
+                <th>Valeur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for compteur in compteurs %}
+            <tr>
+                <td>{{ compteur.id }}</td>
+                <td>{{ compteur.codeCpt }}</td>
+                <td>{{ compteur.libCpt }}</td>
+                <td>{{ compteur.dateCr ? compteur.dateCr|date('Y-m-d') : '' }}</td>
+                <td>{{ compteur.dateLastModif ? compteur.dateLastModif|date('Y-m-d') : '' }}</td>
+                <td>{{ compteur.taille }}</td>
+                <td>{{ compteur.valeur }}</td>
+                <td>
+                    <a href="{{ path('compteur_show', {'id': compteur.id}) }}">show</a>
+                    <a href="{{ path('compteur_edit', {'id': compteur.id}) }}">edit</a>
+                    <form method="post" action="{{ path('compteur_delete', {'id': compteur.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ compteur.id) }}">
+                        <button class="btn btn-danger btn-sm">delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('compteur_new') }}" class="btn btn-primary">Create new</a>
+{% endblock %}
