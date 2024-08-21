@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Symfony App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <!-- Ajoutez d'autres fichiers CSS si nécessaire -->
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ path('app_compteur_index') }}">Compteurs</a></li>
+                <li><a href="{{ path('app_compteur_new') }}">Create New Compteur</a></li>
+                <!-- Ajoutez d'autres liens de navigation si nécessaire -->
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2024 My Symfony App. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Ajoutez d'autres fichiers JS si nécessaire -->
+</body>
+
+</html>

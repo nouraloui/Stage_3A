@@ -1,0 +1,293 @@
+
+{#{% extends 'base2.html.twig' %}
+
+{% block title %}Compteur{% endblock %}
+
+{% block body %}
+    <h1>Compteur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ compteur.id }}</td>
+            </tr>
+            <tr>
+                <th>Code Compteur</th>
+                <td>{{ compteur.codeCpt }}</td>
+            </tr>
+            <tr>
+                <th>Libellé Compteur</th>
+                <td>{{ compteur.libCpt }}</td>
+            </tr>
+            <tr>
+                <th>Date de Création</th>
+                <td>{{ compteur.dateCr ? compteur.dateCr|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date de Dernière Modification</th>
+                <td>{{ compteur.dateLastModif ? compteur.dateLastModif|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Taille</th>
+                <td>{{ compteur.taille }}</td>
+            </tr>
+            <tr>
+                <th>Valeur</th>
+                <td>{{ compteur.valeur }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_compteur_index') }}" class="btn btn-secondary">Back to list</a>
+    <a href="{{ path('app_compteur_edit', {'id': compteur.id}) }}" class="btn btn-primary">Edit</a>
+
+    {{ include('compteur/_delete_form.html.twig') }}
+{% endblock %}#}
+ 
+
+ 
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="wrappixel, admin dashboard, html css dashboard, web dashboard, bootstrap 5 admin, bootstrap 5, css3 dashboard, bootstrap 5 dashboard, Xtreme lite admin bootstrap 5 dashboard, frontend, responsive bootstrap 5 admin template, Xtreme admin lite design, Xtreme admin lite dashboard bootstrap 5 dashboard template">
+    <meta name="description" content="Xtreme Admin Lite is powerful and clean admin dashboard template, inspired from Bootstrap Framework">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Show Compteur</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('espritng.png') }}">
+    <link href="{{ asset('plugins/bower_components/chartist/dist/chartist.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css') }}">
+    <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
+
+    <style>
+        .page-content--bge5 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .login-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .login-logo img {
+            max-width: 100%;
+        }
+
+        .btn-primary {
+            background-color: #cf0039;
+            border: none;
+            color: white;
+            font-size: larger;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: darkred;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .form-control {
+            background-color: #cf0039;
+            border: 1px solid white;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .form-control::placeholder {
+            color: white;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        
+        <header class="topbarr" style="background-color: #BB0000 !important;">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <a class="navbar-brand" href="index.html">
+                        <span class="logo-text" style="color: white; font-size: 25px;">Scolarité</span>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="ti-search"></i>
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav float-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ti-user m-r-5 m-l-5" style="color: white;"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="window.location.href='{{ path('app_utilisateur_login') }}'">
+                                    <i class="ti-user m-r-5 m-l-5"></i> Deconnexion
+                                </a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <div class="user-profile d-flex no-block dropdown m-t-20" style="margin-left: 15px;">
+                                <i class="ti-user m-r-5 m-l-5" style="color: black;"></i>
+                                <div class="user-content hide-menu m-l-10">
+                                    <h5 class="m-b-0 user-name font-medium">Admin</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false">
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.html" aria-expanded="false">
+                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Etudiants</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.html" aria-expanded="false">
+                                <i class="mdi mdi-border-all"></i><span class="hide-menu">Classes</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_compteur_new') }}" aria-expanded="false">
+                                <i class="mdi mdi-plus"></i>
+                                <span class="hide-menu">Create New Compteur</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h4 class="page-title">Compteur</h4>
+                        <div class="d-flex align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Show Compteur</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <h1>Compteur</h1>
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ compteur.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Code Compteur</th>
+                            <td>{{ compteur.codeCpt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Libellé Compteur</th>
+                            <td>{{ compteur.libCpt }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de Création</th>
+                            <td>{{ compteur.dateCr ? compteur.dateCr|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de Dernière Modification</th>
+                            <td>{{ compteur.dateLastModif ? compteur.dateLastModif|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Taille</th>
+                            <td>{{ compteur.taille }}</td>
+                        </tr>
+                        <tr>
+                            <th>Valeur</th>
+                            <td>{{ compteur.valeur }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_compteur_index') }}" class="btn btn-secondary">Back to list</a>
+                <a href="{{ path('app_compteur_edit', {'id': compteur.id}) }}" class="btn btn-primary">Edit</a>
+
+                {{ include('compteur/_delete_form.html.twig') }}
+            </div>
+        </div>
+
+        <footer class="footer text-center">
+            All Rights Reserved by Xtreme Admin. Designed and Developed by <a href="https://www.wrappixel.com">WrapPixel</a>.
+        </footer>
+    </div>
+
+    <script src="{{ asset('plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/app-style-switcher.js') }}"></script>
+    <script src="{{ asset('plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('js/waves.js') }}"></script>
+    <script src="{{ asset('js/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('plugins/bower_components/chartist/dist/chartist.min.js') }}"></script>
+    <script src="{{ asset('plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ asset('js/pages/dashboards/dashboard1.js') }}"></script>
+</body>
+
+</html>

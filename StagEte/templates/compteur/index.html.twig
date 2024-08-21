@@ -1,0 +1,311 @@
+{#
+{% extends 'base2.html.twig' %}
+
+{% block title %}Compteur Index{% endblock %}
+
+{% block body %}
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+
+        <header class="topbarr" style="background-color: #BB0000 !important;">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <a class="navbar-brand" href="index.html">
+                        <span class="logo-text" style="color: white; font-size: 25px;">Scolarité</span>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="ti-search"></i>
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav float-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ti-user m-r-5 m-l-5" style="color: white;"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="window.location.href='{{ path('app_utilisateur_login') }}'">
+                                    <i class="ti-user m-r-5 m-l-5"></i> Deconnexion
+                                </a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <div class="user-profile d-flex no-block dropdown m-t-20" style="margin-left: 15px;">
+                                <i class="ti-user m-r-5 m-l-5" style="color: black;"></i>
+                                <div class="user-content hide-menu m-l-10">
+                                    <h5 class="m-b-0 user-name font-medium">Admin</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false">
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.html" aria-expanded="false">
+                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Etudiants</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.html" aria-expanded="false">
+                                <i class="mdi mdi-border-all"></i><span class="hide-menu">Classes</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_compteur_new') }}" aria-expanded="false">
+                                <i class="mdi mdi-plus"></i>
+                                <span class="hide-menu">Create New Compteur</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h4 class="page-title">Compteur Index</h4>
+                        <div class="d-flex align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ path('app_compteur_index') }}">Back to list</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Compteur Index</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <h1>Compteur List</h1>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Code</th>
+                            <th>Libellé</th>
+                            <th>Date de création</th>
+                            <th>Dernière modification</th>
+                            <th>Taille</th>
+                            <th>Valeur</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for compteur in compteurs %}
+                        <tr>
+                            <td>{{ compteur.id }}</td>
+                            <td>{{ compteur.codeCpt }}</td>
+                            <td>{{ compteur.libCpt }}</td>
+                            <td>{{ compteur.dateCr ? compteur.dateCr|date('Y-m-d') : '' }}</td>
+                            <td>{{ compteur.dateLastModif ? compteur.dateLastModif|date('Y-m-d') : '' }}</td>
+                            <td>{{ compteur.taille }}</td>
+                            <td>{{ compteur.valeur }}</td>
+                            <td>
+                                <a href="{{ path('app_compteur_show', {'id': compteur.id}) }}" class="btn btn-info btn-sm">Show</a>
+                                <a href="{{ path('app_compteur_edit', {'id': compteur.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form method="post" action="{{ path('app_compteur_delete', {'id': compteur.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ compteur.id) }}">
+                                    <button class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <a href="{{ path('app_compteur_new') }}" class="btn btn-primary">Create new</a>
+            </div>
+
+            <footer class="footer text-center">
+                All Rights Reserved by Xtreme Admin. Designed and Developed by <a href="https://www.wrappixel.com">WrapPixel</a>.
+            </footer>
+        </div>
+    </div>
+{% endblock %}#}
+{# templates/compteur/index.html.twig #}
+
+{% extends 'base2.html.twig' %}
+
+{% block title %}Compteur Index{% endblock %}
+
+{% block body %}
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+ <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+
+        <header class="topbarr" style="background-color: #BB0000 !important;">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header" data-logobg="skin5">
+                    <a class="navbar-brand" href="index.html">
+                        <span class="logo-text" style="color: white; font-size: 25px;">Scolarité</span>
+                    </a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
+                    <ul class="navbar-nav float-start me-auto">
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                                <i class="ti-search"></i>
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <a class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav float-end">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ti-user m-r-5 m-l-5" style="color: white;"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end user-dd animated" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="window.location.href='{{ path('app_utilisateur_login') }}'">
+                                    <i class="ti-user m-r-5 m-l-5"></i> Deconnexion
+                                </a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <aside class="left-sidebar" data-sidebarbg="skin6">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li>
+                            <div class="user-profile d-flex no-block dropdown m-t-20" style="margin-left: 15px;">
+                                <i class="ti-user m-r-5 m-l-5" style="color: black;"></i>
+                                <div class="user-content hide-menu m-l-10">
+                                    <h5 class="m-b-0 user-name font-medium">Admin</h5>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.html" aria-expanded="false">
+                                <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-profile.html" aria-expanded="false">
+                                <i class="mdi mdi-account-network"></i><span class="hide-menu">Etudiants</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="table-basic.html" aria-expanded="false">
+                                <i class="mdi mdi-border-all"></i><span class="hide-menu">Classes</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_compteur_new') }}" aria-expanded="false">
+                                <i class="mdi mdi-plus"></i>
+                                <span class="hide-menu">Create New Compteur</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        <!-- Votre code pour l'en-tête et la barre latérale -->
+
+        <div class="page-wrapper">
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h4 class="page-title">Compteur Index</h4>
+                        <div class="d-flex align-items-center">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{{ path('app_compteur_index') }}">Back to list</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Compteur Index</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <h1>Compteur List</h1>
+
+                <!-- Formulaire de recherche -->
+                <form method="get" action="{{ path('app_compteur_index') }}">
+                    <input type="text" name="search" value="{{ search }}" placeholder="Search">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+
+                <!-- Tableau des compteurs -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'id', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Id</a></th>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'code_cpt', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Code</a></th>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'lib_cpt', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Libellé</a></th>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'date_cr', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Date de création</a></th>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'date_last_modif', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Dernière modification</a></th>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'taille', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Taille</a></th>
+                            <th><a href="{{ path('app_compteur_index', {'sort': 'valeur', 'direction': direction == 'asc' ? 'desc' : 'asc', 'search': search}) }}">Valeur</a></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for compteur in compteurs %}
+                        <tr>
+                            <td>{{ compteur.id }}</td>
+                            <td>{{ compteur.codeCpt }}</td>
+                            <td>{{ compteur.libCpt }}</td>
+                            <td>{{ compteur.dateCr ? compteur.dateCr|date('Y-m-d') : '' }}</td>
+                            <td>{{ compteur.dateLastModif ? compteur.dateLastModif|date('Y-m-d') : '' }}</td>
+                            <td>{{ compteur.taille }}</td>
+                            <td>{{ compteur.valeur }}</td>
+                            <td>
+                                <a href="{{ path('app_compteur_show', {'id': compteur.id}) }}" class="btn btn-info btn-sm">Show</a>
+                                <a href="{{ path('app_compteur_edit', {'id': compteur.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form method="post" action="{{ path('app_compteur_delete', {'id': compteur.id}) }}" style="display:inline-block;" onsubmit="return confirm('Are you sure?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ compteur.id) }}">
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">No records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
