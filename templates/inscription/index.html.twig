@@ -1,0 +1,304 @@
+{% extends 'dashboard/index.html.twig' %}
+{% block title %}Inscriptions{% endblock %}
+
+{% block body %}
+<div id="popupContainer" style=" display:none;">
+    <div id="popupContent">
+     <button id="fermer" style="background-color:transparent ; border-color:transparent ;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                </svg></button><br>
+        <ul class="list-group" style="background-color: #fefaf0; border-radius:10px;">
+                    <li class="list-group-item">
+                        <button id="carte-button" class="btn btn-secondary" disabled>Carte d’étudiant</button>
+                    </li>
+                    <li class="list-group-item">
+                        <button id="attesttation-button" class="btn btn-secondary" disabled>Attestation d’inscription</button>
+                    </li>
+                    <li class="list-group-item">
+                        <button id="resultat-button" class="btn btn-secondary" disabled>Resultat Etudiant</button>
+                    </li> 
+        </ul>
+    </div>
+</div>
+    <h1 style="color: white;">Inscriptions</h1>
+    <br>
+    <div class="row">
+        <div class="search-container">
+            <br>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Année universitaire" class="form-control" style="background-color: #fefaf0; border-radius:10px; width:200px;">
+                <button type="submit" id="search-button" class="btn btn-danger" style="background-color: #BB0000;" disabled><i class="fas fa-search"></i></button>
+            </form>
+            <br>
+        </div>
+    </div>
+
+    <div class="container" style="padding-left: 150px;">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="esp-saison-table" style="background-color: #fefaf0; border-radius:10px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Prenom</th>
+                                        <th scope="col">Téléphone</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if etudiantds is not empty %}
+                                        {% for etudiantd in etudiantds %}
+                                            <tr>
+                                                <td>{{ etudiantd.getId() }}</td>
+                                                <td>{{ etudiantd.getNomEt() }}</td>
+                                                <td>{{ etudiantd.getPnomEt() }}</td>
+                                                <td>{{ etudiantd.getTelEt() }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="4">Aucune donnée trouvée</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="second-table" style="background-color: #fefaf0; border-radius:10px;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Esp Debut Annee</th>
+                                        <th>Debut Annee</th>
+                                        <th>Cout annuel</th>
+                                        <th>Frais inscription</th>
+                                        <th>Type rglt</th>
+                                        <th>Mode rglt</th>
+                                        <th>Code dev</th>
+                                        <th>Cout dev</th>
+                                        <th>Sit rglt</th>
+                                        <th>Credit rglt</th>
+                                        <th>Nombre credit module</th>
+                                        <th>moyenne sem1</th>
+                                        <th>moyenne sem2</th>
+                                        <th>moyenne generale</th>
+                                        <th>Resultat</th>
+                                        <th>Niveau accees</th>
+                                        <th>Type inscription</th>
+                                        <th>Niveaux langue</th>
+                                        <th>Code cl langue</th>
+                                        <th>Utilisateur</th>
+                                        <th>Dern utilisateur</th>
+                                        <th>Date preinscription</th>
+                                        <th>Date inscription</th>
+                                        <th>Code cl1</th>
+                                        <th>Code cl</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ include('inscription/search_list.html.twig') }}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <ul class="list-group" style="background-color: #fefaf0; border-radius:10px;">
+                    <li class="list-group-item">
+                        <h5 style="color: #890115;">Traitement liste</h5>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ path('app_inscription_new') }}" class="btn btn-secondary">Ajouter</a>
+                    </li>
+                    <li class="list-group-item">
+                        <button id="pdf-button" class="btn btn-secondary" disabled>Pdf</button>
+                    </li>
+                    <li class="list-group-item">
+                        <button id="modifier-button" class="btn btn-secondary" disabled>Modifier</button>
+                    </li>
+                    <li class="list-group-item">
+                        <button id="supprimer-button" class="btn btn-secondary" disabled>Détails</button>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            let selectedId = null;
+            let selectedId1 = null;
+
+            // Handle search form submission
+            $('#search-form').submit(function(event) {
+                event.preventDefault(); 
+                var searchTerm = $('#search-input').val();
+              
+                    $.ajax({
+                        url: '{{ path('app_inscription_search', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId),
+                        type: 'POST',
+                        data: { searchTerm: searchTerm },
+                        success: function(response) {
+                            $('#second-table tbody').html(response); 
+                        }
+                    });
+                
+            });
+
+            // Handle row selection
+            $('#esp-saison-table tbody').on('click', 'tr', function() {
+                // Remove previous selection
+                $('#esp-saison-table tbody tr').removeClass('selected-row');
+                
+                // Add selection to the clicked row
+                $(this).addClass('selected-row');
+                
+                // Store the selected ID
+                selectedId = $(this).find('td:first').text();
+ $('#search-button').prop('disabled', false);
+            });
+
+             $('#second-table tbody').on('click', 'tr', function() {
+                // Remove previous selection
+                $('#second-table tbody tr').removeClass('selected-row');
+                
+                // Add selection to the clicked row
+                $(this).addClass('selected-row');
+                
+                // Store the selected ID
+                selectedId1 = $(this).find('td:first').text();
+
+                // Enable the Modifier and Supprimer buttons
+                $('#modifier-button').prop('disabled', false);
+                $('#supprimer-button').prop('disabled', false);
+                $('#pdf-button').prop('disabled', false);
+                 $('#carte-button').prop('disabled', false);
+                  $('#attesttation-button').prop('disabled', false);
+                   $('#resultat-button').prop('disabled', false);
+               
+            });
+
+            // Handle Modifier button click
+            $('#modifier-button').click(function() {
+                if (selectedId1) {
+                    window.location.href = '{{ path('app_inscription_edit', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId1);
+                }
+            });
+
+             $('#fermer').click(function() {
+                if (selectedId1) {
+                   $('#popupContainer').hide();
+                }
+            });
+
+               $('#pdf-button').click(function() {
+                if (selectedId1) {
+                   $('#popupContainer').show();
+                }
+            });
+
+          $('#carte-button').click(function() {
+    if (selectedId1) {
+        $.ajax({
+            url: '{{ path('app_inscription_pdf', {'id': 'ID_PLACEHOLDER', 'mode': 'carte'}) }}'.replace('ID_PLACEHOLDER', selectedId1),
+            type: 'GET',
+            xhrFields: {
+                responseType: 'blob'  // Set the response type to 'blob' for handling binary data
+            },
+            success: function(response) {
+                // Create a URL for the PDF blob
+                var blob = new Blob([response], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+
+                // Open the PDF in a new tab
+                window.open(url, '_blank');
+            }
+        });
+    }
+});
+
+$('#attesttation-button').click(function() {
+    if (selectedId1) {
+        $.ajax({
+            url: '{{ path('app_inscription_pdf', {'id': 'ID_PLACEHOLDER', 'mode': 'attestation'}) }}'.replace('ID_PLACEHOLDER', selectedId1),
+            type: 'GET',
+           xhrFields: {
+                responseType: 'blob'  // Set the response type to 'blob' for handling binary data
+            },
+            success: function(response) {
+                // Create a URL for the PDF blob
+                var blob = new Blob([response], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+
+                // Open the PDF in a new tab
+                window.open(url, '_blank');
+            }
+        });
+    }
+});
+
+$('#resultat-button').click(function() {
+    if (selectedId1) {
+        $.ajax({
+            url: '{{ path('app_inscription_pdf', {'id': 'ID_PLACEHOLDER', 'mode': 'resultat'}) }}'.replace('ID_PLACEHOLDER', selectedId1),
+            type: 'GET',
+            xhrFields: {
+                responseType: 'blob'  // Set the response type to 'blob' for handling binary data
+            },
+            success: function(response) {
+                // Create a URL for the PDF blob
+                var blob = new Blob([response], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+
+                // Open the PDF in a new tab
+                window.open(url, '_blank');
+            }
+        });
+    }
+});
+
+
+
+            // Handle Supprimer button click
+            $('#supprimer-button').click(function() {
+                console.log(selectedId1)
+                if (selectedId1) {
+                    window.location.href = '{{ path('app_inscription_show', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId1);
+                }
+            });
+        });
+    </script>
+    {% endblock %}
+    <style>
+    #popupContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+        }
+        #popupContent {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+    </style>
+{% endblock %}
+
+

@@ -1,0 +1,39 @@
+
+            {% if espInscriptions is defined and espInscriptions is not empty %}
+          {% for espInscription in espInscriptions %}
+            <tr>
+               <td>{{ espInscription.id }}</td>
+                <td>{{ espInscription.getEspAnneeDeb() }}</td>
+               <td>{{ espInscription.getAnneeDeb() }}</td>
+                <td>{{ espInscription.getCoutAnnuel() }}</td>
+                <td>{{ espInscription.getFraisIns() }}</td>
+                <td>{{ espInscription.getTypeRglt() }}</td>
+                <td>{{ espInscription.getModeRglt() }}</td>
+                <td>{{ espInscription.getCodeDev() }}</td>
+                <td>{{ espInscription.getCoutDev() }}</td>
+                <td>{{ espInscription.getSitRglt() }}</td>
+                <td>{{ espInscription.getCreditRglt() }}</td>
+                <td>{{ espInscription.getNbCreditModule() }}</td>
+                <td>{{ espInscription.getMoySem1() }}</td>
+                <td>{{ espInscription.getMoySem2() }}</td>
+                <td>{{ espInscription.getMoyGeneral() }}</td>
+                <td>{{ espInscription.getResultat() }}</td>
+                <td>{{ espInscription.getNiveauAccees() }}</td>
+                <td>{{ espInscription.getTypeInsc() }}</td>
+                <td>{{ espInscription.getNivLangue() }}</td>
+                <td>{{ espInscription.getCodeClLangue() }}</td>
+                <td>{{ espInscription.getUtilisateur() }}</td>
+                <td>{{ espInscription.getDernUtilisateur() }}</td>
+                <td>{{ espInscription.getDatePreinsc() ? espInscription.getDatePreinsc()|date('Y-m-d') : '' }}</td>
+                <td>{{ espInscription.getDateInsc() ? espInscription.getDateInsc()|date('Y-m-d') : '' }}</td>
+                <td>{{ espInscription.getCodeCl1() }}</td>
+                <td>{{ espInscription.getCodeCl() }}</td>
+            </tr>
+        {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="26">Aucune donnée trouvée</td>
+            </tr>
+
+             {% endif %}
+       

@@ -1,0 +1,26 @@
+
+            
+        {% for esp_saison_classe in esp_saison_classes %}
+            <tr>
+                <td>{{ esp_saison_classe.id }}</td>
+                <td>{{ esp_saison_classe.getCodeCl }}</td>
+                <td>{{ esp_saison_classe.anneeDeb }}</td>
+                <td>{{ esp_saison_classe.dateDemarrage ? esp_saison_classe.dateDemarrage|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_saison_classe.description }}</td>
+                <td>{{ esp_saison_classe.nbEtudiant }}</td>
+                <td>{{ esp_saison_classe.sallePrincipale }}</td>
+                <td>{{ esp_saison_classe.salleSecondaire1 }}</td>
+                <td>{{ esp_saison_classe.salleSecondaire2 }}</td>
+                <td>{{ esp_saison_classe.nature }}</td>
+                <td>{{ esp_saison_classe.typeClasse }}</td>
+                <td>{{ esp_saison_classe.nbSeance }}</td>
+                <td>{{ esp_saison_classe.classeEntreprise }}</td>
+                <td>{{ esp_saison_classe.semestre }}</td>
+                <td>{{ esp_saison_classe.clEclate }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+       

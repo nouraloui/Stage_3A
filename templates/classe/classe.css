@@ -1,0 +1,40 @@
+.table-custom {
+    border: 2px solid black;
+    border-collapse: separate; /* Allows for custom spacing between cells */
+    border-spacing: 0; /* Remove default spacing */
+}
+
+.table-custom th, .table-custom td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.table-custom th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table-custom td {
+    background-color: #ffffff;
+}
+
+.table-custom tbody tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+}
+
+.table-custom tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.table-custom .btn-group .btn {
+    margin-right: 0.5rem;
+}
+
+.table-custom .btn-group .btn:last-child {
+    margin-right: 0;
+}
+
+.table-custom td p-2 {
+    padding: 0.5rem;
+}

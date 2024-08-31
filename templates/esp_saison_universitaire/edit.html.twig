@@ -1,0 +1,48 @@
+{% extends 'dashboard/index.html.twig' %}
+   
+{% block title %}Modifier Esp Saison Universitaire{% endblock %}
+
+{% block body %}
+    <h1 style="color: white !important;">Modifier Esp Saison Universitaire</h1>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-10" style="background-color: #fefaf0 !important; border-radius:10px;">
+           {{ form_start(form) }}
+    {{ form_widget(form) }}
+        </div>
+        <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;">
+                <li class="list-group-item" style="background-color: #fefaf0 !important; border-radius:10px;">
+                    <h5 style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                <li class="list-group-item" style="background-color: #fefaf0 !important;  border-radius:10px;">
+                    <button type="submit" class="btn btn-secondary">{{ button_label|default('Modifier') }}</button>
+                    {{ form_end(form) }}
+                </li>
+                <li class="list-group-item" style="background-color: #fefaf0 !important;  border-radius:10px;">
+                    <a href="{{ path('app_esp_saison_classe_index') }}" class="btn btn-secondary">Retour</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+ <style>
+    .form-control {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+label{
+    color:black;
+}
+    </style>
+    
+
+    
+{% endblock %}
+

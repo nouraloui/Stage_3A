@@ -1,0 +1,58 @@
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<title> pdf </title>
+<head>
+    <meta charset="UTF-8">
+    <title>Classes</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+       
+    </style>
+</head>
+<body>
+    <h1>Classes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Libellé</th>
+                <th>Description</th>
+                <th>Date de création</th>
+                <th>Date de modification</th>
+                <th>Salle principale</th>
+                <th>Salle secondaire 1</th>
+                <th>Salle secondaire 2</th>
+                <th>Niveau d'accès</th>
+                <th>Filière</th>
+                <th>Année scolaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for classe in classes %}
+                <tr>
+                    <td>{{ classe.libelleCl }}</td>
+                    <td>{{ classe.descriptionCl }}</td>
+                    <td>{{ classe.dateCr|date('Y-m-d') }}</td>
+                    <td>{{ classe.dateDernModif|date('Y-m-d') }}</td>
+                    <td>{{ classe.sallePrincipale }}</td>
+                    <td>{{ classe.salleSecondaire1 }}</td>
+                    <td>{{ classe.salleSecondaire2 }}</td>
+                    <td>{{ classe.getNiveauAccees }}</td>
+                    <td>{{ classe.filiere }}</td>
+                    <td>{{ classe.anneeScolaire }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+ 
+{% endblock %}
+
