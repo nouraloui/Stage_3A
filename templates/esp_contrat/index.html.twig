@@ -1,0 +1,141 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+<style>
+   /* Couleurs */
+   :root {
+     --noir: #000;
+     --rouge: #cc0000;
+     --gris: #888;
+     --blanc: #fff;
+   }
+
+   /* Typographie */
+   body {
+     font-family: Arial, sans-serif;
+   }
+
+   .table-container {
+  margin-left: 250px;
+  max-width: 100%; /* Ensures the container doesn't exceed the page width */
+ overflow-x: auto; 
+  margin-bottom: 200px;
+  margin-top: 20px;
+}
+   /* Tableau */
+   .table {
+
+     border-collapse: collapse;
+     width: 100%;
+     margin-bottom: 20px;
+     margin-top: 15px;
+     
+   }
+   th, td {
+     border: 1px solid var(--gris);
+     padding: 10px;
+     text-align: left;
+   }
+
+   th {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     font-weight: bold;
+   }
+
+   /* Alternance de lignes */
+   tr:nth-child(even) {
+     background-color: #f2f2f2;
+   }
+
+   /* Effet de survol */
+   tr:hover {
+     background-color: #ddd;
+   }
+
+   /* Style du bouton */
+   .btn-esprit {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+   }
+
+   .btn-esprit1 {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+     margin-left: 250px;
+     margin-top: 100px;
+   }
+
+   /* Effet de survol */
+   .btn-esprit:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+
+   .btn-esprit1:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+</style>
+<a href="{{ path('pdfC_generate') }}" class="btn-esprit1">Télécharger le PDF</a>
+   <a href="{{ path('app_esp_contrat_new') }}"class="btn-esprit1">Ajouter un Contrat</a>
+  
+
+   <div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numord</th>
+                <th>Annee</th>
+                <th>Date_etab</th>
+                <th>Diplome</th>
+                <th>Grade</th>
+                <th>Institution</th>
+                <th>Actions</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+        {% for esp_contrat in esp_contrats %}
+            <tr>
+                <td>{{ esp_contrat.numord }}</td>
+                <td>{{ esp_contrat.annee }}</td>
+                <td>{{ esp_contrat.dateEtab ? esp_contrat.dateEtab|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_contrat.diplome }}</td>
+                <td>{{ esp_contrat.grade }}</td>
+                <td>{{ esp_contrat.institution }}</td>
+                <td>
+                
+                    <a href="{{ path('app_esp_contrat_delete', {'numord': esp_contrat.numord}) }}"class="btn-esprit">Supprimer</a>
+              
+                
+                    <a href="{{ path('app_esp_contrat_edit', {'numord': esp_contrat.numord}) }}"class="btn-esprit">Modifier</a>
+               
+            </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+{% endblock %}

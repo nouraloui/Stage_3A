@@ -1,0 +1,287 @@
+{% extends 'index.html.twig' %}
+    {% block body %}
+        <style>
+        .student-photo {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            max-width: 500px; /* Limit maximum width if needed */
+        }
+       
+   /* Couleurs */
+   :root {
+     --noir: #000;
+     --rouge: #cc0000;
+     --gris: #888;
+     --blanc: #fff;
+   }
+
+   /* Typographie */
+   body {
+     font-family: Arial, sans-serif;
+   }
+.table-container {
+  margin-left: 250px;
+  max-width: 100%; /* Ensures the container doesn't exceed the page width */
+ overflow-x: auto; 
+  margin-bottom: 200px;
+  margin-top: 20px;
+}
+   /* Tableau */
+   table {
+
+     border-collapse: collapse;
+     width: 100%;
+     margin-bottom: 20px;
+     margin-top: 15px;
+     
+   }
+
+   th, td {
+     border: 1px solid var(--gris);
+     padding: 10px;
+     text-align: left;
+   }
+
+   th {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     font-weight: bold;
+   }
+
+   /* Alternance de lignes */
+   tr:nth-child(even) {
+     background-color: #f2f2f2;
+   }
+
+   /* Effet de survol */
+   tr:hover {
+     background-color: #ddd;
+   }
+
+   /* Cellule avec un triangle (simulant la flèche du logo) */
+   
+.btn-esprit {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+   
+   }
+   /* Style du bouton */
+   .btn-esprit1 {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+     margin-left: 250px;
+     margin-top: 100px;
+   }
+
+   /* Effet de survol */
+   .btn-esprit:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+   .btn-esprit1:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+
+    </style>      <a href="{{ path('app_etudiant_step', { 'step': 1 }) }}" class="btn-esprit1">Ajouter étudiant</a>
+        <div class="col-12" style="margin-left: 18%;">
+            <div class="card">
+                         {# Search form with autocomplete #}
+                         <br>
+    <form method="get" action="{{ path('get_etudiants') }}">
+        <input type="text" id="search-etudiant" name="q" style="width: 250px;margin-left:850px;" placeholder="Rechercher par Identifiant ou Nom" value="{{ searchQuery }}">
+        <button type="submit" style="background-color: #BB0000;color:white;border:none">Rechercher</button>
+    </form>
+   
+  
+    
+                 
+                <div class="table-responsive" style="overflow-x: auto; width: 80%;margin-top:40px">
+                    <table class="table" >
+                        <thead>
+                            <tr>
+                                <th scope="col" style="min-width: 80px;">Niveau d'accées</th>
+                                <th scope="col" style="min-width: 80px;">Classe précédente</th>
+                                <th scope="col" style="min-width: 80px;">Classe actuelle</th>
+                                <th scope="col" style="min-width: 80px;">Classe semestre 1</th>
+                                <th scope="col" style="min-width: 80px;">Identifiant</th>
+                                <th scope="col" style="min-width: 80px;">Nom</th>
+                                <th scope="col" style="min-width: 80px;">Prénom</th>
+                                <th scope="col" style="min-width: 80px;">Date naissance</th>
+                                <th scope="col" style="min-width: 80px;">Lieu naissance</th>
+                                <th scope="col" style="min-width: 80px;">Sexe</th>  
+                                <th scope="col" style="min-width: 80px;">Adresse</th>
+                                <th scope="col" style="min-width: 80px;">Téléphone</th>
+                                <th scope="col" style="min-width: 80px;">E-mail</th>
+                                <th scope="col" >Photo</th>  
+                                <th scope="col" style="min-width: 80px;">Cp </th>
+                                <th scope="col" style="min-width: 80px;">Nationnalité</th>
+                                <th scope="col" style="min-width: 80px;">Ville</th>
+                                <th scope="col" style="min-width: 80px;">Pays</th>
+                                <th scope="col" style="min-width: 80px;">Téléphone du parent</th>
+                                <th scope="col" style="min-width: 80px;">E-mail du parent</th>
+                                <th scope="col" style="min-width: 80px;">Cp du parent</th>
+                                <th scope="col" style="min-width: 80px;">Adresse du parent</th>
+                                <th scope="col" style="min-width: 80px;">Ville du parent</th>
+                                <th scope="col" style="min-width: 80px;">Pays du parent</th>
+                                <th scope="col" style="min-width: 80px;">Nature</th>
+                                <th scope="col" style="min-width: 80px;">Numéro Cin/passeport</th>
+                                <th scope="col" style="min-width: 80px;">Fonction</th>
+                                <th scope="col" style="min-width: 80px;">Cycle</th>
+                                <th scope="col" style="min-width: 80px;">Nature bac</th>
+                                <th scope="col" style="min-width: 80px;">Date bac</th>
+                                <th scope="col" style="min-width: 80px;">Numéro bac</th>
+                                <th scope="col" style="min-width: 80px;">Etablissement bac</th>
+                                <th scope="col" style="min-width: 80px;">Diplome supérieur</th>
+                                <th scope="col" style="min-width: 80px;">Niveau diplome supérieur</th>
+                                <th scope="col" style="min-width: 80px;">Etablissement origine</th>
+                                <th scope="col" style="min-width: 80px;">Spécialité</th>
+                                <th scope="col" style="min-width: 80px;">Date entrée</th>
+                                <th scope="col" style="min-width: 80px;">Année entrée</th>  
+                                <th scope="col" style="min-width: 80px;">Situation financiere</th>  
+                                <th scope="col" style="min-width: 80px;">Niveau courant</th>  
+                                <th scope="col" style="min-width: 80px;">Moyenne dérniere semestre</th>  
+                                <th scope="col" style="min-width: 80px;">Résultat final</th>  
+                                <th scope="col" style="min-width: 80px;">Date sortie</th>  
+                                <th scope="col" style="min-width: 80px;">Date saisie</th>  
+                                <th scope="col" style="min-width: 80px;">Date dérniere modification</th>  
+                                <th scope="col" style="min-width: 80px;">Agent</th>  
+                                <th scope="col" style="min-width: 80px;">Numéro ord</th>  
+                                <th scope="col" style="min-width: 80px;">Date délivrance</th>  
+                                <th scope="col" style="min-width: 80px;">lieu délivrance</th>  
+                                <th scope="col" style="min-width: 80px;">Nature cours</th>  
+                                <th scope="col" style="min-width: 80px;">Nature piéce</th>  
+                                <th scope="col" style="min-width: 80px;">Observation</th>  
+                                <th scope="col" style="min-width: 80px;" colspan="3">Actions</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for e in pagination %}
+                                <tr>
+                                    <td>{{ e.getNiveauAccéesEtLabel }}</td> <!-- Correct key name -->
+                                    <td>{{ e.classeCouranteEt }}</td>
+                                    <td>{{ e.classeCouranteEt }}</td>
+                                    <td>{{ e.classeCouranteEt }}</td>
+                                    <td>{{ e.idEt }}</td>
+                                    <td>{{ e.nomEt }}</td>
+                                    <td>{{ e.pnomEt }}</td>
+                                    <td>{{ e.dateNaisEt|date('Y-m-d') }}</td>
+                                    <td>{{ e.lieuNaisEt }}</td>
+                                    <td>{{ e.sexe }}</td>
+                                    <td>{{ e.adresseEt }}</td>
+                                    <td>{{ e.telEt }}</td>
+                                    <td>{{ e.emailEt }}</td>
+                                    <td>
+                {% if e.photoEt %}
+                    <img src="{{ asset('uploads/photos/' ~ e.photoEt) }}"  style="width: 100px; height: auto;">
+                {% else %}
+                    Pas de photo
+                {% endif %}
+            </td>
+                                    <td>{{ e.cpEt }}</td>
+                                    <td>{{ e.nationalite }}</td>
+                                    <td>{{ e.villeEt }}</td>
+                                    <td>{{ e.paysEt }}</td>
+                                    <td>{{ e.telParentEt }}</td>
+                                    <td>{{ e.emailParent }}</td>
+                                    <td>{{ e.cpParent }}</td>
+                                    <td>{{ e.adresseParent }}</td>
+                                    <td>{{ e.paysParent }}</td>
+                                    <td>{{ e.VilleParent }}</td>
+                                    <td>{{ e.natureEt }}</td>
+                                    <td>{{ e.numCinPasseport }}</td>
+                                    <td>{{ e.fonctionEt }}</td>
+                                    <td>{{ e.cycleEt }}</td>
+                                    <td>{{ e.natureBac }}</td>
+                                    <td>{{ e.dateBac|date('Y-m-d') }}</td>
+                                    <td>{{ e.numBacEt }}</td>
+                                    <td>{{ e.etabBac }}</td>
+                                    <td>{{ e.diplomeSupEt }}</td>
+                                    <td>{{ e.niveauDiplomeSupEt }}</td>
+                                    <td>{{ e.etabOrigine }}</td>
+                                    <td>{{ e.SpeialiteEspEt }}</td>
+                                    <td>{{ e.dateEntreeEspEt|date('Y-m-d') }}</td>
+                                    <td>{{ e.anneeEntreeEspEt }}</td>
+                                    <td>{{ e.situationFinanciereEt }}</td>
+                                    <td>{{ e.getNiveauCourantEtLabel }}</td>
+                                    <td>{{ e.moyenneDernSemestreEt }}</td>
+                                    <td>{{ e.resultatFinalEt }}</td>
+                                    <td>{{ e.dateSortieEt|date('Y-m-d') }}</td>
+                                    <td>{{ e.dateSaisie|date('Y-m-d') }}</td>
+                                    <td>{{ e.dateDernModif|date('Y-m-d') }}</td>
+                                    <td>{{ e.agent }}</td>
+                                    <td>{{ e.numOrd }}</td>
+                                    <td>{{ e.dateDelivrance|date('Y-m-d') }}</td>
+                                    <td>{{ e.lieuDelivrance }}</td>
+                                    <td>{{ e.natureCours }}</td>
+                                    <td>{{ e.naturePieceId }}</td>
+                                    <td>{{ e.observationEt }}</td>
+                              
+                                    <td>
+                                        <form action="{{ path('app_etudiant_delete', {'id_et': e.idEt}) }}" method="post" >
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn-esprit">Supprimer
+                                               
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <!-- Edit Button -->
+                                        <a href="{{ path('app_etudiant_edit', {'id': e.idEt, 'step': 1}) }}" class="btn-esprit" >
+                                            Modifier
+                                        </a>
+                                    </td>
+                                    <td>
+                                  <a href="{{ path('app_etudiant_show', {'id': e.idEt}) }}" class="btn btn-info btn-sm" >
+                                   <i class="ti-eye"></i>
+                                              </a>
+                                      </td>
+
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            {% do pagination.setPageRange(2) %}
+            {{ knp_pagination_render(pagination, 'pagination.html.twig') }}
+        </div>
+    {# Add jQuery and jQuery UI for autocomplete #}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+        $(function() {
+            $("#search-etudiant").autocomplete({
+                source: "{{ path('etudiant_autocomplete') }}",  // URL to fetch autocomplete suggestions
+                minLength: 1,  // Trigger search after the first character
+                select: function(event, ui) {
+                    $('#search-etudiant').val(ui.item.value); // Set the selected value in the input
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    {% endblock %}
+    

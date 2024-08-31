@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            margin: 1mm;
+        }
+        .header {
+            position: fixed;
+            top: 0mm;
+            right: 10mm;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            height: 2cm;
+            margin: 0cm 2cm 0cm;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20mm;
+            font-size: 18pt;
+            font-weight: bold;
+        }
+        .table-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            page-break-inside: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: red; /* Change header color to red */
+            color: white; /* Ensure text is readable */
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header">
+        <img src="{{ asset('/espritng.png') }}" style="max-width: 100px;"/>
+    </div>
+
+    <div class="title" >
+       La Liste Des Enseignants
+    </div>
+    </header>
+ <footer>
+        <div style="font-size: 15px;margin-left: 10px">
+            Adresse : Esprit Technopole Ghazela Ariana</div>
+        <div style="font-size: 15px;margin-left: 10px">
+            Numéro : +216 55 596 226</div>
+        <div style="font-size: 15px;margin-left: 10px">
+            E-mail : esprit@esprit.tn</div>
+    </footer>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Enseignant</th>
+                    <th>Nom Enseignant</th>
+                    <th>Type Enseignant</th>
+                    <th>Date Recrutement</th>
+                    <th>Niveau</th>
+                    <th>Date Saisie</th>
+                    <th>Date Dernière Modification</th>
+                    <th>État</th>
+                    <th>Observation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for esp_enseignant in esp_enseignants %}
+                    <tr>
+                        <td>{{ esp_enseignant.idEns }}</td>
+                        <td>{{ esp_enseignant.nomEns }}</td>
+                        <td>{{ esp_enseignant.typeEns }}</td>
+                        <td>{{ esp_enseignant.dateRec ? esp_enseignant.dateRec|date('Y-m-d') : '' }}</td>
+                        <td>{{ esp_enseignant.niveau }}</td>
+                        <td>{{ esp_enseignant.dateSaisie ? esp_enseignant.dateSaisie|date('Y-m-d') : '' }}</td>
+                        <td>{{ esp_enseignant.dateDernModif ? esp_enseignant.dateDernModif|date('Y-m-d') : '' }}</td>
+                        <td>{{ esp_enseignant.etat }}</td>
+                        <td>{{ esp_enseignant.observation }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

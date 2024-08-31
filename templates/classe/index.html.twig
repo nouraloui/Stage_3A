@@ -1,0 +1,251 @@
+{% extends 'dashboard/index.html.twig' %}
+{% block title %}Classes{% endblock %}
+
+{% block body %}
+    <h1 style="color: white !important;">Classes</h1>
+    <br>
+<div class="row">
+    <div class="search-container">
+        <br>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Rechercher..." style="background-color: #fefaf0 !important; border-radius:10px;">
+                <button type="submit" id="search-button" style="background-color: #BB0000 !important;"><i class="fas fa-search" ></i></button>
+            </form>
+        <br>
+    </div>
+</div>
+
+</div>
+<div class="container" style="padding-left: 150px;">
+    <div class="row">
+        <div class="col-lg-10">
+          <div class="row">
+                <div class="col-md-12 mb-3">
+                    <div class="table-responsive">
+                <table class="table table-hover"  id="esp-saison-table" style="background-color: #fefaf0 !important; border-radius:10px;">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Libellé</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date de Création</th>
+                        <th scope="col">Salle Principale</th>
+                        <th scope="col">Niveau d'Accès</th>
+                        <th scope="col">Filière</th>
+                        <th scope="col">Année Scolaire</th>
+                         <th scope="col">Code cl</th>
+                         <th scope="col">Categorie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% include 'classe/search_list.html.twig' with {'classes': classes} %}
+                    </tbody>
+                </table>
+            </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                             <div class="table-responsive">
+                <table class="table" id="second-table" style="background-color: #fefaf0 !important; border-radius:10px;">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                 
+                </tr>
+            </thead>
+           <tbody>
+              
+           </tbody>
+         </table>
+                </div>
+                        </div>
+
+                          <div class="col-md-6">
+                             <div class="table-responsive">
+                    <form id="affectation-form" action="{{ path('app_affecter_etudiants') }}" method="POST">
+        <div class="table-responsive">
+            <table class="table" id="third-table" style="background-color: #fefaf0 !important; border-radius:10px;">
+                <thead>
+                    <tr>
+                        <th>Choisir</th>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Les lignes d'étudiants seront générées ici via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <div id="assign-button-container" style="display: none;">
+        <button type="submit" class="btn btn-secondary">Affecter les étudiants</button>
+        </div>
+        
+    </form>
+
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;" >
+                <li class="list-group-item ">
+                 <h5  style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                <li class="list-group-item ">
+                 <a href="{{ path('app_classe_new') }}" class="btn btn-secondary">Ajouter</a>
+                </li>
+                 <li class="list-group-item ">
+                 <a href="{{ path('app_classe_pdf') }}" class="btn btn-secondary">Pdf</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <button id="modifier-button" class="btn btn-secondary" disabled>Modifier</button>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <button id="supprimer-button" class="btn btn-secondary" disabled>Détails</button>
+                </li> 
+                 <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <button id="ouverture-button" class="btn btn-secondary" disabled>Ouverture</button>
+                </li> 
+            </ul>
+        </div>
+    </div>
+</div>
+
+      {% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+          $(function() {
+            let selectedId = null;
+
+            // Handle search form submission
+            $('#search-form').submit(function(event) {
+                event.preventDefault(); 
+                var searchTerm = $('#search-input').val();
+                $.ajax({
+                    url: '{{ path('app_searchClasse') }}', 
+                    type: 'POST',
+                    data: { searchTerm: searchTerm }, 
+                    success: function(response) {
+                        $('#esp-saison-table tbody').html(response); 
+                    }
+                });
+            });
+
+            // Handle row selection
+            $('#esp-saison-table tbody').on('click', 'tr', function() {
+                // Remove previous selection
+                $('#esp-saison-table tbody tr').removeClass('selected-row');
+                
+                // Add selection to the clicked row
+                $(this).addClass('selected-row');
+                
+                // Store the selected ID
+                selectedId = $(this).find('td:first').text();
+
+                // Enable the Modifier and Supprimer buttons
+                $('#modifier-button').prop('disabled', false);
+                $('#supprimer-button').prop('disabled', false);
+                $('#ouverture-button').prop('disabled', false);
+                
+                  if (selectedId) {
+          $.ajax({
+    url: '{{ path('app_get_etudiants', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId),
+    type: 'GET',
+    success: function(response) {
+        let rowsone = '';
+        let rowstwo = '';
+
+        if (response.assigned_students.length === 0 && response.unassigned_students.length === 0) {
+            rowsone += `<tr><td>Aucune donnée trouvée</td></tr>`;
+            rowstwo += `<tr><td>Aucune donnée trouvée</td></tr>`;
+            $('#second-table tbody').html(rowsone);
+            $('#third-table tbody').html(rowstwo);
+            $('#assign-button-container').hide();
+        } 
+        else {
+            // Populate assigned students table
+            if (response.assigned_students.length === 0) {
+                rowsone += `<tr><td>Aucune donnée trouvée</td></tr>`;
+            } else {
+                response.assigned_students.forEach(function(etud) {
+                    rowsone += `<tr>
+                        <td>${etud.id}</td>
+                        <td>${etud.nom}</td>
+                        <td>${etud.prenom}</td>
+                    </tr>`;
+                });
+            }
+            $('#second-table tbody').html(rowsone);
+
+            // Populate unassigned students table
+            if (response.unassigned_students.length === 0) {
+                rowstwo += `<tr><td>Aucune donnée trouvée</td></tr>`;
+                $('#assign-button-container').hide();
+            } else {
+                response.unassigned_students.forEach(function(etud) {
+                    rowstwo += `<tr>
+                        <td>${etud.id}</td>
+                        <td>${etud.nom}</td>
+                        <td>${etud.prenom}</td>
+                        <td><input type="checkbox" name="etudiants_ids[]" value="${etud.id}"></td>
+                        <input type="hidden" name="classe_id" id="classe-id" value="${selectedId}">
+                    </tr>`;
+                });
+                $('#assign-button-container').show();
+            }
+            $('#third-table tbody').html(rowstwo);
+        }
+    }
+});
+
+        }
+            });
+
+            // Handle Modifier button click
+            $('#modifier-button').click(function() {
+                if (selectedId) {
+                    window.location.href = '{{ path('app_classe_edit', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId);
+                }
+            });
+
+            // Handle Supprimer button click
+            $('#supprimer-button').click(function() {
+                if (selectedId) {
+                    
+                        window.location.href = '{{ path('app_classe_show', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId);
+                    
+                }
+            });
+            
+
+             $('#ouverture-button').click(function() {
+                if (selectedId) {
+                      $.ajax({
+    url: '{{ path('app_Ouverture_classe', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId),
+    type: 'POST',
+    success: function(response) {
+        if(response==="Classe deja ouvert"){
+            alert('Classe deja ouvert')
+        }else if(response==="Classe ouvert"){
+ window.location.href = '{{ path('app_classe_index') }}';
+        }
+    }})
+                    
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% endblock %}
+
+
+      

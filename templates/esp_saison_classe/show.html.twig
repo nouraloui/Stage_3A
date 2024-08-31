@@ -1,0 +1,99 @@
+{% extends 'dashboard/index.html.twig' %}
+   
+
+{% block title %}EspSaisonClasse{% endblock %}
+
+{% block body %}
+      <h1 style="color: white !important;">EspSaisonClasse</h1>
+    <br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+        <table class="table" style="background-color: #fefaf0 !important; border-radius:10px;">
+        <tbody>
+            <tr>
+                <th>Code_cl</th>
+                <td>{{ esp_saison_classe.codeCl }}</td>
+            </tr>
+            <tr>
+                <th>Annee_deb</th>
+                <td>{{ esp_saison_classe.anneeDeb }}</td>
+            </tr>
+            <tr>
+                <th>Date_demarrage</th>
+                <td>{{ esp_saison_classe.dateDemarrage ? esp_saison_classe.dateDemarrage|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ esp_saison_classe.description }}</td>
+            </tr>
+            <tr>
+                <th>Nb_etudiant</th>
+                <td>{{ esp_saison_classe.nbEtudiant }}</td>
+            </tr>
+            <tr>
+                <th>Salle_principale</th>
+                <td>{{ esp_saison_classe.sallePrincipale }}</td>
+            </tr>
+            <tr>
+                <th>Salle_secondaire_1</th>
+                <td>{{ esp_saison_classe.salleSecondaire1 }}</td>
+            </tr>
+            <tr>
+                <th>Salle_secondaire_2</th>
+                <td>{{ esp_saison_classe.salleSecondaire2 }}</td>
+            </tr>
+            <tr>
+                <th>Nature</th>
+                <td>{{ esp_saison_classe.nature }}</td>
+            </tr>
+            <tr>
+                <th>Type_classe</th>
+                <td>{{ esp_saison_classe.typeClasse }}</td>
+            </tr>
+            <tr>
+                <th>Nb_seance</th>
+                <td>{{ esp_saison_classe.nbSeance }}</td>
+            </tr>
+            <tr>
+                <th>Classe_entreprise</th>
+                <td>{{ esp_saison_classe.classeEntreprise }}</td>
+            </tr>
+            <tr>
+                <th>Semestre</th>
+                <td>{{ esp_saison_classe.semestre }}</td>
+            </tr>
+            <tr>
+                <th>Cl_eclate</th>
+                <td>{{ esp_saison_classe.clEclate }}</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+         <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;" >
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <h5  style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                 <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <a href="{{ path('app_esp_saison_classe_edit', {'id': esp_saison_classe.id}) }}" class="btn btn-secondary">Modifier</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <a href="{{ path('app_esp_saison_classe_index') }}" class="btn btn-secondary">Retour</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                  
+    {{ include('esp_saison_classe/_delete_form.html.twig') }}
+                </li> 
+            </ul>
+        </div>
+    </div>
+</div>
+   
+
+    
+
+    
+
+   
+{% endblock %}

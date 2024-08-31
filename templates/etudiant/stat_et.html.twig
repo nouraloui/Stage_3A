@@ -1,0 +1,147 @@
+{% extends 'index.html.twig' %}
+
+
+    {% block body %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="chart-title">Genre</p>
+                        <div class="chart-container">
+                            <canvas id="genderChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="chart-title">Établissement d'origine</p>
+                        <div class="chart-container">
+                            <canvas id="etabOrigineChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            // Define an array of colors for the bars
+            const barColors = [
+                'rgba(54, 162, 235, 0.6)', // Color for the first bar
+                'rgba(255, 99, 132, 0.6)', // Color for the second bar
+                'rgba(255, 206, 86, 0.6)', // Color for the third bar
+                'rgba(75, 192, 192, 0.6)', // Color for the fourth bar
+                'rgba(153, 102, 255, 0.6)', // Color for the fifth bar
+                'rgba(255, 159, 64, 0.6)'  // Color for the sixth bar
+            ];
+    
+            const etabOrigineCtx = document.getElementById('etabOrigineChart').getContext('2d');
+            const etabOrigineChart = new Chart(etabOrigineCtx, {
+                type: 'bar',
+                data: {
+                    labels: {{ labels|raw }},
+                    datasets: [{
+                        label: 'Nombre d\'étudiants',
+                        data: {{ values|raw }},
+                        backgroundColor: barColors.slice(0, {{ values|length }}), // Apply colors based on the number of bars
+                        borderColor: barColors.slice(0, {{ values|length }}).map(color => color.replace('0.6', '1')), // Apply border color
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        datalabels: {
+                            color: '#000', // Text color for labels
+                            display: true,
+                            anchor: 'end',
+                            align: 'top',
+                            font: {
+                                weight: 'bold'
+                            },
+                            formatter: (value) => {
+                                return value; // Display the value
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1 // Set the step size for Y-axis ticks
+                            }
+                        }
+                    }
+                }
+            });
+    
+            const genderCtx = document.getElementById('genderChart').getContext('2d');
+            const genderChart = new Chart(genderCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Masculin', 'Féminin'],
+                    datasets: [{
+                        label: 'Répartition par genre',
+                        data: [{{ maleCount }}, {{ femaleCount }}],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 99, 132, 0.6)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                    }
+                }
+            });
+        </script>
+        
+        <style>
+            .chart-title {
+                font-size: 15px;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .chart-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .card {
+                margin-left: 30px;
+                margin-bottom: 20px;
+            }
+            #genderChart {
+                width: 100% !important; /* Ensure it uses full width of its container */
+                height: 300px !important;
+            }
+            #etabOrigineChart {
+                width: 100% !important; /* Ensure it uses full width of its container */
+                height: 300px !important;
+            }
+        </style>
+    
+        <script>
+            console.log('Labels:', {{ labels|raw }});
+            console.log('Values:', {{ values|raw }});
+            console.log('Male Count:', {{ maleCount }});
+            console.log('Female Count:', {{ femaleCount }});
+        </script>
+    {% endblock %}
+    

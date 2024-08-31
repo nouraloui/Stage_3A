@@ -1,0 +1,64 @@
+
+{% extends 'dashboard/index.html.twig' %}
+   
+
+{% block title %}EspSaisonUniversitaire{% endblock %}
+
+{% block body %}
+      <h1 style="color: white !important;">Esp Saison Universitaire</h1>
+    <br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+             <table class="table" style="background-color: #fefaf0 !important; border-radius:10px;">
+        <tbody>
+            <tr>
+                
+               
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ esp_saison_universitaire.description }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ esp_saison_universitaire.dateDebut ? esp_saison_universitaire.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ esp_saison_universitaire.dateFin ? esp_saison_universitaire.dateFin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Observation</th>
+                <td>{{ esp_saison_universitaire.observation }}</td>
+            </tr>
+           
+        </tbody>
+    </table>
+        </div>
+         <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;" >
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <h5  style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                 <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <a href="{{ path('app_esp_saison_universitaire_edit', {'id': esp_saison_universitaire.id}) }}" class="btn btn-secondary">Modifier</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <a href="{{ path('app_esp_saison_universitaire_index') }}" class="btn btn-secondary">Retour</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                  {{ include('esp_saison_universitaire/_delete_form.html.twig') }}
+                </li> 
+            </ul>
+        </div>
+    </div>
+</div>
+   
+
+    
+
+    
+
+   
+{% endblock %}

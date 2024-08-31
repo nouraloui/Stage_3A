@@ -1,0 +1,139 @@
+{% extends 'index.html.twig' %}
+ 
+    {% block body %}
+    <style>
+       
+
+        .container {
+      
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-top: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .profile-image {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+        max-width: 120px; /* Reduce the size of the photo to 50px */
+        max-height: 120px; /* Set a maximum height to ensure proportional scaling */
+    }
+        .details {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px; /* Add margin to create space between sections */
+        }
+
+        .details h2 {
+            margin-top: 0;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        /* Add print styles */
+        @media print {
+            /* Hide the sidebar and top bar */
+            .topbarr,
+            .left-sidebar {
+                display: none !important;
+            }
+
+            
+
+            .container,
+            .container * {
+                visibility: visible;
+            }
+
+            .container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+
+            .profile-image img {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <h1>Détails de l'Étudiant</h1>
+
+        <div class="profile-image" style="size: 50px;">
+            {% if etudiant.photoEt %}
+            <img src="{{ asset('uploads/photos/' ~ etudiant.photoEt) }}" alt="Photo de {{ etudiant.nomEt }}" style="size: 50px;">
+            {% else %}
+            <p>Aucune photo disponible</p>
+            {% endif %}
+        </div>
+
+        <div class="details">
+            <h2>Informations Personnelles </h2>
+            <p><strong>ID:</strong> {{ etudiant.idEt }}</p>
+            <p><strong>Nom:</strong> {{ etudiant.nomEt }}</p>
+            <p><strong>Prénom:</strong> {{ etudiant.pnomEt }}</p>
+            <p><strong>Cin/passeport:</strong> {{ etudiant.numCinPasseport }}</p>
+            <p><strong>Date de naissance:</strong> {{ etudiant.dateNaisEt|date('Y-m-d') }}</p>
+            <p><strong>Lieu de naissance:</strong> {{ etudiant.lieuNaisEt }}</p>
+            <p><strong>Sexe:</strong> {{ etudiant.sexe }}</p>
+            <p><strong>Adresse:</strong> {{ etudiant.adresseEt }}</p>
+            <p><strong>Téléphone:</strong> {{ etudiant.telEt }}</p>
+            <p><strong>E-mail:</strong> {{ etudiant.emailEt }}</p>
+            <p><strong>Code postal:</strong> {{ etudiant.cpEt }}</p>
+            <p><strong>Nationalité:</strong> {{ etudiant.nationalite }}</p>
+            <p><strong>Ville:</strong> {{ etudiant.villeEt }}</p>
+            <p><strong>Pays:</strong> {{ etudiant.paysEt }}</p>
+            <p><strong>Téléphone du parent:</strong> {{ etudiant.telParentEt }}</p>
+            <p><strong>E-mail du parent:</strong> {{ etudiant.emailParent }}</p>
+            <p><strong>Code postal du parent:</strong> {{ etudiant.cpParent }}</p>
+            <p><strong>Adresse du parent:</strong> {{ etudiant.adresseParent }}</p>
+            <p><strong>Ville du parent:</strong> {{ etudiant.VilleParent }}</p>
+            <p><strong>Pays du parent:</strong> {{ etudiant.paysParent }}</p>
+            <!-- Autres informations générales ici -->
+        </div>
+
+        <div class="details">
+            <h2>Informations Générales </h2>
+        
+            <p><strong>Nature:</strong> {{ etudiant.natureEt }}</p>
+            <p><strong>Fonction:</strong> {{ etudiant.fonctionEt }}</p>
+            <p><strong>Cycle:</strong> {{ etudiant.cycleEt }}</p>
+            <p><strong>Nature du bac:</strong> {{ etudiant.natureBac }}</p>
+            <p><strong>Date du bac:</strong> {{ etudiant.dateBac|date('Y-m-d') }}</p>
+            <p><strong>Numéro du bac:</strong> {{ etudiant.numBacEt }}</p>
+            <p><strong>Établissement du bac:</strong> {{ etudiant.etabBac }}</p>
+            <p><strong>Diplôme supérieur:</strong> {{ etudiant.diplomeSupEt }}</p>
+            <p><strong>Niveau du diplôme supérieur:</strong> {{ etudiant.niveauDiplomeSupEt }}</p>
+            <p><strong>Établissement d'origine:</strong> {{ etudiant.etabOrigine }}</p>
+            <p><strong>Spécialité:</strong> {{ etudiant.SpeialiteEspEt }}</p>
+            <p><strong>Date d'entrée à l'ESP:</strong> {{ etudiant.dateEntreeEspEt|date('Y-m-d') }}</p>
+            <p><strong>Année d'entrée à l'ESP:</strong> {{ etudiant.anneeEntreeEspEt }}</p>
+            <p><strong>Situation financière:</strong> {{ etudiant.situationFinanciereEt }}</p>
+            <p><strong>Niveau courant:</strong> {{ etudiant.getNiveauCourantEtLabel }}</p>
+            <p><strong>Moyenne du dernier semestre:</strong> {{ etudiant.moyenneDernSemestreEt }}</p>
+            <p><strong>Résultat final:</strong> {{ etudiant.resultatFinalEt }}</p>
+            <p><strong>Date de sortie:</strong> {{ etudiant.dateSortieEt|date('Y-m-d') }}</p>
+            <p><strong>Date de saisie:</strong> {{ etudiant.dateSaisie|date('Y-m-d') }}</p>
+            <button onclick="window.print()" class="btn btn-primary" style="margin-top: 20px;">Imprimer</button>
+        </div>
+        
+    </div>
+  
+{% endblock %}
+
+

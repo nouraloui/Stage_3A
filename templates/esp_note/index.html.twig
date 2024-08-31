@@ -1,0 +1,144 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+<style>
+   /* Couleurs */
+   :root {
+     --noir: #000;
+     --rouge: #cc0000;
+     --gris: #888;
+     --blanc: #fff;
+   }
+
+   /* Typographie */
+   body {
+     font-family: Arial, sans-serif;
+   }
+
+   .table-container {
+  margin-left: 250px;
+  max-width: 100%; /* Ensures the container doesn't exceed the page width */
+ overflow-x: auto; 
+  margin-bottom: 200px;
+  margin-top: 20px;
+}
+   /* Tableau */
+   table {
+
+     border-collapse: collapse;
+     width: 100%;
+     margin-bottom: 20px;
+     margin-top: 15px;
+     
+   }
+
+
+   th, td {
+     border: 1px solid var(--gris);
+     padding: 10px;
+     text-align: left;
+   }
+
+   th {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     font-weight: bold;
+   }
+
+   /* Alternance de lignes */
+   tr:nth-child(even) {
+     background-color: #f2f2f2;
+   }
+
+   /* Effet de survol */
+   tr:hover {
+     background-color: #ddd;
+   }
+
+   /* Style du bouton */
+   .btn-esprit {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+   }
+
+   .btn-esprit1 {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+     margin: 100px 0 0 250px;
+   }
+
+   /* Effet de survol */
+   .btn-esprit:hover {
+     background-color: #a60000; /* Couleur rouge foncé, remplace darken */
+   }
+   .btn-esprit1:hover {
+     background-color: #a60000; /* Couleur rouge foncé, remplace darken */
+   }
+</style>
+
+
+
+<a href="{{ path('app_esp_note_new') }}" class="btn-esprit1">Ajouter une Note</a>
+
+<div class="table-container">
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Code Module</th>
+            <th>Code Classe</th>
+            <th>Annee Début</th>
+            <th>ID Etudiant</th>
+            <th>Note Exam</th>
+            <th>Note TP</th>
+            <th>Note CC</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for esp_note in esp_notes %}
+            <tr>
+                <td>{{ esp_note.codeModule }}</td>
+                <td>{{ esp_note.codeCl }}</td>
+                <td>{{ esp_note.AnneeDeb }}</td>
+                <td>{{ esp_note.IdEt }}</td>
+                <td>{{ esp_note.NoteExam }}</td>
+                <td>{{ esp_note.NoteTP }}</td>
+                <td>{{ esp_note.NoteCC }}</td>
+                <td>{{ esp_note.isConfirmed ? 'Confirmée' : 'Non confirmée' }}</td>
+                <td>
+                    {% if not esp_note.isConfirmed %}
+                        <a href="{{ path('note_confirm', { 'code_module': esp_note.codeModule }) }}" class="btn-esprit">Confirmer</a>
+                    {% endif %}
+                    <a href="{{ path('app_esp_note_edit', {'code_module': esp_note.codeModule}) }}" class="btn-esprit">Modifier</a>
+                    <a href="{{ path('app_esp_note_delete', {'code_module': esp_note.codeModule}) }}" class="btn-esprit">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">No records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}

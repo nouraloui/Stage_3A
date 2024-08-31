@@ -1,0 +1,41 @@
+
+{% extends 'index.html.twig' %}
+
+{% block body %}
+ <style>
+        h1 {
+            text-align: center; /* Centrer le titre */
+            color: #ff0000; /* Rouge */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+    <h1>EspModule</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code Module</th>
+                <td>{{ esp_module.codeModule }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ esp_module.designation }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ esp_module.description }}</td>
+            </tr>
+            <tr>
+                <th>Nombre d'heures</th>
+                <td>{{ esp_module.nbHeures }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_esp_module_index') }}">Retourner à la liste</a>
+
+
+    {{ include('esp_module/_delete_form.html.twig') }}
+{% endblock %}

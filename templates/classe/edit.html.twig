@@ -1,0 +1,35 @@
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}ModifierClasse{% endblock %}
+
+{% block body %}
+    <h1 style="color: white !important;">ModifierClasse</h1>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-10" style="background-color: #fefaf0 !important; border-radius:10px;">
+            {{ form_start(form) }}
+    {{ form_widget(form) }}
+        </div>
+        <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;">
+                <li class="list-group-item" style="background-color: #fefaf0 !important; border-radius:10px;">
+                    <h5 style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                <li class="list-group-item" style="background-color: #fefaf0 !important;  border-radius:10px;">
+                    <button type="submit" class="btn btn-secondary">{{ button_label|default('Modifier') }}</button>
+                    {{ form_end(form) }}
+                </li>
+                <li class="list-group-item" style="background-color: #fefaf0 !important;  border-radius:10px;">
+                    <a href="{{ path('app_classe_index') }}" class="btn btn-secondary">Retour</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+
+    
+{% endblock %}
+

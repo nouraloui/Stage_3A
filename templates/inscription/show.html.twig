@@ -1,0 +1,144 @@
+{% extends 'dashboard/index.html.twig' %}
+   
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+      <h1 style="color: white !important;">Inscription</h1>
+    <br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+                 <table class="table" style="background-color: #fefaf0 !important; border-radius:10px;">
+        <tbody>
+            <tr>
+                <th>#</th>
+                <td>{{ espInscription.id }}</td>
+            </tr>
+            <tr>
+                <th>Esp Debut Annee</th>
+                <td>{{ espInscription.getEspAnneeDeb() }}</td>
+            </tr>
+            <tr>
+                <th>Debut Annee</th>
+                 <td>{{ espInscription.getAnneeDeb() }}</td>
+            </tr>
+            <tr>
+                <th>Cout annuel</th>
+                 <td>{{ espInscription.getCoutAnnuel() }}</td>
+            </tr>
+            <tr>
+                <th>Frais inscription</th>
+                   <td>{{ espInscription.getFraisIns() }}</td>
+            </tr>
+            <tr>
+                <th>Type rglt</th>
+                 <td>{{ espInscription.getTypeRglt() }}</td>
+            </tr>
+            <tr>
+                <th>Mode rglt</th>
+               <td>{{ espInscription.getModeRglt() }}</td>
+            </tr>
+            <tr>
+                <th>Code dev</th>
+                <td>{{ espInscription.getCodeDev() }}</td>
+            </tr>
+            <tr>
+                <th>Cout dev</th>
+                  <td>{{ espInscription.getCoutDev() }}</td>
+            </tr>
+            <tr>
+                <th>Sit rglt</th>
+                  <td>{{ espInscription.getSitRglt() }}</td>
+            </tr>
+             <tr>
+                <th>Credit rglt</th>
+                 <td>{{ espInscription.getCreditRglt() }}</td>
+            </tr>
+
+             <tr>
+                <th>Nombre credit module</th>
+               <td>{{ espInscription.getNbCreditModule() }}</td>
+            </tr>
+             <tr>
+                <th>moyenne sem1</th>
+                <td>{{ espInscription.getMoySem1() }}</td>
+            </tr>
+            <tr>
+                <th>moyenne sem2</th>
+                <td>{{ espInscription.getMoySem2() }}</td>
+            </tr>
+             <tr>
+                <th>moyenne generale</th>
+                <td>{{ espInscription.getMoyGeneral() }}</td>
+            </tr>
+
+             <tr>
+                <th>Resultat</th>
+                 <td>{{ espInscription.getResultat() }}</td>
+            </tr>
+             <tr>
+                <th>Niveau accees</th>
+                <td>{{ espInscription.getNiveauAccees() }}</td>
+            </tr>
+             <tr>
+                <th>Type inscription</th>
+                <td>{{ espInscription.getTypeInsc() }}</td>
+            </tr>
+            <tr>
+                <th>Niveaux langue</th>
+                <td>{{ espInscription.getNivLangue() }}</td>
+            </tr>
+             <tr>
+                <th>Code cl langue</th>
+                <td>{{ espInscription.getCodeClLangue() }}</td>
+            </tr>
+             <tr>
+                <th>Utilisateur</th>
+                 <td>{{ espInscription.getUtilisateur() }}</td>
+            </tr>
+            <tr>
+                <th>Dern utilisateur</th>
+                 <td>{{ espInscription.getDernUtilisateur() }}</td>
+            </tr>
+            <tr>
+                <th>Date preinscription</th>
+                <td>{{ espInscription.getDatePreinsc() ? espInscription.getDatePreinsc()|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date inscription</th>
+                <td>{{ espInscription.getDateInsc() ? espInscription.getDateInsc()|date('Y-m-d') : '' }}</td>
+            </tr>
+
+             <tr>
+                <th>Code cl1</th>
+                    <td>{{ espInscription.getCodeCl1() }}</td>
+            </tr>
+             <tr>
+                <th>Code cl</th>
+                  <td>{{ espInscription.getCodeCl() }}</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+         <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;" >
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <h5  style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                 <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <a href="{{ path('app_inscription_edit', {'id': espInscription.id}) }}" class="btn btn-secondary">Modifier</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <a href="{{ path('app_inscription_index') }}" class="btn btn-secondary">Retour</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                  
+    {{ include('inscription/_delete_form.html.twig') }}
+                </li> 
+            </ul>
+        </div>
+    </div>
+</div>
+   
+{% endblock %}

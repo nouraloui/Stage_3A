@@ -1,0 +1,35 @@
+
+
+{% extends 'index.html.twig' %}
+
+{% block body %}
+ <style>
+        h1 {
+            text-align: center; /* Centrer le titre */
+            color: #ff0000; /* Rouge */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+    <h1>Salle</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>code Salle</th>
+                <td>{{ salle.codeSalle }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ salle.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_salle_index') }}">Retourner à la liste</a>
+
+    <a href="{{ path('app_salle_edit', {'code_salle': salle.codeSalle}) }}">Modifier</a>
+
+    {{ include('salle/_delete_form.html.twig') }}
+{% endblock %}

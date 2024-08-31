@@ -1,0 +1,173 @@
+{% extends 'index.html.twig' %}
+   
+{% block body %}
+<style>
+   /* Couleurs */
+   :root {
+     --noir: #000;
+     --rouge: #cc0000;
+     --gris: #888;
+     --blanc: #fff;
+   }
+
+   /* Typographie */
+   body {
+     font-family: Arial, sans-serif;
+   }
+.table-container {
+  margin-left: 250px;
+  max-width: 100%; /* Ensures the container doesn't exceed the page width */
+ overflow-x: auto; 
+  margin-bottom: 200px;
+  margin-top: 20px;
+}
+   /* Tableau */
+   table {
+
+     border-collapse: collapse;
+     width: 100%;
+     margin-bottom: 20px;
+     margin-top: 15px;
+     
+   }
+
+   th, td {
+     border: 1px solid var(--gris);
+     padding: 10px;
+     text-align: left;
+   }
+
+   th {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     font-weight: bold;
+   }
+
+   /* Alternance de lignes */
+   tr:nth-child(even) {
+     background-color: #f2f2f2;
+   }
+
+   /* Effet de survol */
+   tr:hover {
+     background-color: #ddd;
+   }
+
+   /* Cellule avec un triangle (simulant la flèche du logo) */
+   
+.btn-esprit {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+   
+   }
+   /* Style du bouton */
+   .btn-esprit1 {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+     margin-left: 250px;
+     margin-top: 100px;
+   }
+
+   /* Effet de survol */
+   .btn-esprit:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+   .btn-esprit1:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+</style>
+
+<a href="{{ path('export_excel') }}" class="btn-esprit1">Export un Excel</a>
+<a href="{{ path('planEtudeNew') }}" class="btn-esprit1">Ajouter un plan d'etude</a>
+
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Code Module</th>
+                <th>Num Panier</th>
+                <th>Code CL</th>
+                <th>Année Début</th>
+                <th>Année Fin</th>
+                <th>Description</th>
+                <th>Nb Heures</th>
+                <th>Coef</th>
+                <th>Num Semestre</th>
+                <th>Num Période</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Date Examen</th>
+                <th>Date Rattrapage</th>
+                <th>Nb Horaire Réalisés</th>
+                <th>A Comptabiliser</th>
+                <th>Enseignant</th>
+                <th>Année Début ESP</th>
+                <th>Salle</th>
+                <th>Deuxième Enseignant</th>
+                <th>Nb Heures Enseignant</th>
+                <th>Nb Heures Deuxième Enseignant</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for esp_plan_etude in esp_plan_etudes %}
+            <tr>
+                <td>{{ esp_plan_etude.codeModule ? esp_plan_etude.codeModule.codeModule : '' }}</td>
+                <td>{{ esp_plan_etude.numPanier }}</td>
+                <td>{{ esp_plan_etude.codeCl }}</td>
+                <td>{{ esp_plan_etude.anneeDeb }}</td>
+                <td>{{ esp_plan_etude.anneeFin }}</td>
+                <td>{{ esp_plan_etude.description }}</td>
+                <td>{{ esp_plan_etude.nbHeures }}</td>
+                <td>{{ esp_plan_etude.coef }}</td>
+                <td>{{ esp_plan_etude.numSemestre }}</td>
+                <td>{{ esp_plan_etude.numPeriodfe }}</td>
+                <td>{{ esp_plan_etude.dateDebut ? esp_plan_etude.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_plan_etude.dateFin ? esp_plan_etude.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_plan_etude.dateExamen ? esp_plan_etude.dateExamen|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_plan_etude.dateRattrapage ? esp_plan_etude.dateRattrapage|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_plan_etude.nbHoraireRealises }}</td>
+                <td>{{ esp_plan_etude.acomptabiliser }}</td>
+                <td>{{ esp_plan_etude.IdEns ? esp_plan_etude.IdEns.__toString() : '' }}</td>
+                <td>{{ esp_plan_etude.espAnneeDeb }}</td>
+                <td>{{ esp_plan_etude.codeSalle ? esp_plan_etude.codeSalle.__toString() : '' }}</td>
+                <td>{{ esp_plan_etude.IdEns2 ? esp_plan_etude.IdEns2.__toString() : '' }}</td>
+                <td>{{ esp_plan_etude.nbHeuresEns }}</td>
+                <td>{{ esp_plan_etude.nbHeuresEns2 }}</td>
+                <td>
+                    <a href="{{ path('planEtudeEdit', {'code_module': esp_plan_etude.codeModule.codeModule}) }}"class="btn-esprit">Modifier</a>
+                    <form action="{{ path('planEtudeDelete', {'code_module': esp_plan_etude.codeModule.codeModule}) }}" method="post" style="display:inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ esp_plan_etude.codeModule.codeModule) }}">
+                        <button class="btn-esprit">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="23">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

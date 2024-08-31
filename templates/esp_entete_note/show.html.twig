@@ -1,0 +1,48 @@
+
+{% extends 'index.html.twig' %}
+
+{% block body %}
+ <style>
+        h1 {
+            text-align: center; /* Centrer le titre */
+            color: #ff0000; /* Rouge */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+    <h1>EspEnteteNote</h1>
+
+    <table class="table">
+        <tbody>
+           
+            <tr>
+                <th>Code Module</th>
+                <td>{{ esp_entete_note.CodeModule }}</td>
+            </tr>
+            <tr>
+                <th>Code Classe</th>
+                <td>{{ esp_entete_note.codeCl }}</td>
+            </tr>
+            <tr>
+                <th>AnneeDeb</th>
+                <td>{{ esp_entete_note.AnneeDeb }}</td>
+            </tr>
+            <tr>
+                <th>IdEns</th>
+                <td>{{ esp_entete_note.IdEns }}</td>
+            </tr>
+            <tr>
+                <th>DateSaisie</th>
+                <td>{{ esp_entete_note.DateSaisie ? esp_entete_note.DateSaisie|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Semestre</th>
+                <td>{{ esp_entete_note.Semestre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+    {{ include('esp_entete_note/_delete_form.html.twig') }}
+{% endblock %}

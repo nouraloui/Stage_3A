@@ -1,0 +1,117 @@
+{% extends 'index.html.twig' %}
+{% block body %}
+
+    <style>
+        /* Style général du formulaire */
+        form {
+            background-color: #ffffff; /* Fond blanc */
+            border: 2px solid #000000; /* Bordure noire */
+            padding: 30px;
+            width: 500px; /* Largeur du formulaire */
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            font-family: 'Arial', sans-serif;
+            animation: fadeIn 0.5s ease-in-out; /* Animation de fondu */
+        }
+
+        /* Style des champs de saisie */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="datetime-local"],
+        textarea,
+        select {
+            width: 100%; /* Largeur complète */
+            padding: 12px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            appearance: none; /* Supprimer les styles natifs */
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="date"]:focus,
+        input[type="datetime-local"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #ff0000; /* Rouge */
+            box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            outline: none;
+        }
+
+        /* Style des étiquettes */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        /* Style du bouton d'envoi */
+        button[type="submit"] {
+            background-color: #ff0000; /* Rouge */
+            color: #ffffff; /* Blanc */
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #cc0000; /* Rouge foncé */
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"]:active {
+            background-color: #b30000; /* Rouge encore plus foncé */
+            transform: translateY(0);
+        }
+
+        /* Style pour les messages d'erreur */
+        .error-message {
+            color: #ff0000; /* Rouge */
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        /* Style pour les messages de succès */
+        .success-message {
+            color: #008000; /* Vert */
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Ajout d'une animation pour le formulaire */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+
+
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_end(form) }}
+
+
+{% endblock  %}

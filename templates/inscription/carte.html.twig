@@ -1,0 +1,77 @@
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+<title>Carte Etudiant</title>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .student-card {
+            width: 350px;
+            height: 200px;
+            border: 2px solid #c91518;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: #fdfdfd;
+            font-family: Arial, sans-serif;
+        }
+        .university-logo {
+           
+            margin-bottom: 15px;
+        }
+        .university-logo img {
+            height: 150px;
+        }
+        .student-photo {
+            flex: 1;
+            margin-right: 20px;
+            padding:20px;
+        }
+        .student-photo img {
+            width: 80px;
+            height: 100px;
+            border-radius: 5px;
+        }
+        .student-info {
+            flex: 2;
+        }
+        .student-info h2 {
+            font-size: 16px;
+            margin: 0;
+            color: #004aad;
+        }
+        .student-info p {
+            font-size: 14px;
+            margin: 5px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-card">
+        <div class="student-photo">
+        {% if inscription.etudiant.photo !=null %}
+            <img src="data:image/jpeg;base64,{{ inscription.etudiant.photo.getPhotosId() }}" alt="Photo Étudiant">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+               <img src="{{ logoBase64 }}" alt="Logo Université">
+            {% else %}
+             <img src="{{ autreBase64 }}" alt="Photo Étudiant">
+              {% endif %}
+        </div>
+        <div class="student-info">
+           
+             
+            
+           
+             <p><strong>Nom:</strong> {{ inscription.etudiant.getNomEt() }}  <strong>Prenom:</strong> {{ inscription.etudiant.getPnomEt() }}</p>
+            <p><strong>Telephone:</strong> {{ inscription.etudiant.getTelEt() }}</p>
+            <p><strong>ID etudiant:</strong> {{ inscription.id }}</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
+
+

@@ -1,0 +1,145 @@
+{% extends 'index.html.twig' %}
+   
+{% block body %}
+<style>
+   /* Couleurs */
+   :root {
+     --noir: #000;
+     --rouge: #cc0000;
+     --gris: #888;
+     --blanc: #fff;
+   }
+
+   /* Typographie */
+   body {
+     font-family: Arial, sans-serif;
+   }
+.table-container {
+ 
+  max-width: 100%; /* Ensures the container doesn't exceed the page width */
+ overflow-x: auto; 
+  margin-bottom: 200px;
+  margin-top: 20px;
+}
+   /* Tableau */
+   .table {
+ margin-left: 250px;
+     border-collapse: collapse;
+     width: 100%;
+     margin-bottom: 20px;
+     margin-top: 15px;
+     
+   }
+
+   th, td {
+     border: 1px solid var(--gris);
+     padding: 10px;
+     text-align: left;
+   }
+
+   th {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     font-weight: bold;
+   }
+
+   /* Alternance de lignes */
+   tr:nth-child(even) {
+     background-color: #f2f2f2;
+   }
+
+   /* Effet de survol */
+   tr:hover {
+     background-color: #ddd;
+   }
+
+   /* Cellule avec un triangle (simulant la flèche du logo) */
+   
+.btn-esprit {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+   
+   }
+   /* Style du bouton */
+   .btn-esprit1 {
+     background-color: var(--rouge);
+     color: var(--blanc);
+     border: none;
+     padding: 10px 20px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     cursor: pointer;
+     border-radius: 5px;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+     margin-left: 250px;
+     margin-top: 100px;
+   }
+
+   /* Effet de survol */
+   .btn-esprit:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+   .btn-esprit1:hover {
+     background-color: darken(var(--rouge), 10%);
+   }
+</style>
+<a href="{{ path('pdf_generate') }}" class="btn-esprit1">Télécharger un  PDF</a>
+   <a href="{{ path('app_esp_enseignant_new') }}"class="btn-esprit1">Ajouter un Enseignant</a>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Enseignat</th>
+                <th>Nom Enseignat</th>
+                <th>Type Enseignat</th>
+                <th>Date Recrutement</th>
+                <th>Niveau</th>
+                <th>Date Saisie</th>
+                <th>Date_dern_modif</th>
+                <th>Etat</th>
+                <th>Observation</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for esp_enseignant in esp_enseignants %}
+            <tr>
+                <td>{{ esp_enseignant.idEns }}</td>
+                <td>{{ esp_enseignant.nomEns }}</td>
+                <td>{{ esp_enseignant.typeEns }}</td>
+                <td>{{ esp_enseignant.dateRec ? esp_enseignant.dateRec|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_enseignant.niveau }}</td>
+                <td>{{ esp_enseignant.dateSaisie ? esp_enseignant.dateSaisie|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_enseignant.dateDernModif ? esp_enseignant.dateDernModif|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_enseignant.etat }}</td>
+                <td>{{ esp_enseignant.observation }}</td>
+           <td>
+                
+                    <a href="{{ path('app_esp_enseignant_delete', {'id_ens': esp_enseignant.idEns}) }}"class="btn-esprit">Supprimer</a>
+              
+                
+                    <a href="{{ path('app_esp_enseignant_edit', {'id_ens': esp_enseignant.idEns}) }}"class="btn-esprit">Modifier</a>
+               
+            </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+   
+{% endblock %}

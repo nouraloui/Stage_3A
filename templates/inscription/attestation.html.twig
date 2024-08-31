@@ -1,0 +1,86 @@
+{% block body %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Attestation d'Inscription</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fdfdfd;
+        }
+        .student-card {
+            width: 80%;
+            border: 2px solid #c91518;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            background-color: #ffffff;
+            margin: 0 auto;
+        }
+        .university-logo {
+            margin-bottom: 20px;
+        }
+        .university-logo img {
+            height: 100px;
+        }
+        .student-photo {
+            flex: 1;
+            margin-right: 20px;
+            padding: 10px;
+            text-align: center;
+        }
+        .student-photo img {
+            width: 120px;
+            height: 150px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .student-info {
+            flex: 2;
+            padding: 10px;
+        }
+        .student-info h2 {
+            font-size: 18px;
+            margin: 0;
+            color: #004aad;
+        }
+        .student-info p {
+            font-size: 14px;
+            margin: 5px 0;
+            color: #333;
+        }
+        .student-info strong {
+            color: #c91518;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-card">
+        <div class="university-logo">
+            <img src="{{ logoBase64 }}" alt="Logo Université">
+        </div>
+        <div class="student-photo">
+            {% if inscription.etudiant.photo is not null %}
+                <img src="data:image/jpeg;base64,{{ inscription.etudiant.photo.getPhotosId() }}" alt="Photo Étudiant">
+            {% else %}
+                <img src="{{ autreBase64 }}" alt="Photo Étudiant">
+            {% endif %}
+        </div>
+        <div class="student-info">
+            <h2>Attestation d'inscription</h2>
+            <p><strong>Nom:</strong> {{ inscription.etudiant.getNomEt() }} <strong>Prénom:</strong> {{ inscription.etudiant.getPnomEt() }}</p>
+            <p><strong>Téléphone:</strong> {{ inscription.etudiant.getTelEt() }}</p>
+            <p><strong>ID Étudiant:</strong> {{ inscription.id }}</p>
+            <p><strong>Frais Inscription:</strong> {{ inscription.getFraisIns() }}</p>
+            <p><strong>Coût Annuel:</strong> {{ inscription.getCoutAnnuel() }}</p>
+            <p><strong>Année:</strong> {{ inscription.getAnneeDeb() }}</p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

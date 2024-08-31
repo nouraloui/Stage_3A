@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            margin: 1mm;
+        }
+        .header {
+            position: fixed;
+            top: 0mm;
+            right: 10mm;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            height: 2cm;
+            margin: 0cm 2cm 0cm;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20mm;
+            font-size: 18pt;
+            font-weight: bold;
+        }
+        .table-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            page-break-inside: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: red; /* Change header color to red */
+            color: white; /* Ensure text is readable */
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header">
+        <img src="{{ asset('/espritng.png') }}" style="max-width: 100px;"/>
+    </div>
+
+    <div class="title" >
+       La Liste Des Contrats
+    </div>
+    </header>
+ <footer>
+        <div style="font-size: 15px;margin-left: 10px">
+            Adresse : Esprit Technopole Ghazela Ariana</div>
+        <div style="font-size: 15px;margin-left: 10px">
+            Numéro : +216 55 596 226</div>
+        <div style="font-size: 15px;margin-left: 10px">
+            E-mail : esprit@esprit.tn</div>
+    </footer>
+    <div class="table-container">
+        <table>
+            <thead>
+                <thead>
+            <tr>
+                <th>Numord</th>
+                <th>Annee</th>
+                <th>Date_etab</th>
+                <th>Diplome</th>
+                <th>Grade</th>
+                <th>Institution</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+        {% for esp_contrat in esp_contrats %}
+            <tr>
+                <td>{{ esp_contrat.numord }}</td>
+                <td>{{ esp_contrat.annee }}</td>
+                <td>{{ esp_contrat.dateEtab ? esp_contrat.dateEtab|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_contrat.diplome }}</td>
+                <td>{{ esp_contrat.grade }}</td>
+                <td>{{ esp_contrat.institution }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

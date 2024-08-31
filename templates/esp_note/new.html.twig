@@ -1,0 +1,20 @@
+{% extends 'index.html.twig' %}
+
+
+{% block body %}
+ <style>
+        h1 {
+            text-align: center; /* Centrer le titre */
+            color: #ff0000; /* Rouge */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+
+    <h1>Create new EspNote</h1>
+
+    {{ include('esp_note/_form.html.twig') }}
+
+    <a href="{{ path('app_esp_note_index') }}">Retourner à la liste</a>
+{% endblock %}

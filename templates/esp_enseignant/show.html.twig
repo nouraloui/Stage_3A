@@ -1,0 +1,59 @@
+
+{% extends 'index.html.twig' %}
+
+{% block body %}
+ <style>
+        h1 {
+            text-align: center; /* Centrer le titre */
+            color: #ff0000; /* Rouge */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id_ens</th>
+                <td>{{ esp_enseignant.idEns }}</td>
+            </tr>
+            <tr>
+                <th>Nom_ens</th>
+                <td>{{ esp_enseignant.nomEns }}</td>
+            </tr>
+            <tr>
+                <th>Type_ens</th>
+                <td>{{ esp_enseignant.typeEns }}</td>
+            </tr>
+            <tr>
+                <th>Date_rec</th>
+                <td>{{ esp_enseignant.dateRec ? esp_enseignant.dateRec|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Niveau</th>
+                <td>{{ esp_enseignant.niveau }}</td>
+            </tr>
+            <tr>
+                <th>Date_saisie</th>
+                <td>{{ esp_enseignant.dateSaisie ? esp_enseignant.dateSaisie|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_dern_modif</th>
+                <td>{{ esp_enseignant.dateDernModif ? esp_enseignant.dateDernModif|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ esp_enseignant.etat }}</td>
+            </tr>
+            <tr>
+                <th>Observation</th>
+                <td>{{ esp_enseignant.observation }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_esp_enseignant_index') }}">Retourner à la liste </a>
+
+
+    {{ include('esp_enseignant/_delete_form.html.twig') }}
+{% endblock %}

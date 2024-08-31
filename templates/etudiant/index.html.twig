@@ -1,0 +1,173 @@
+{% extends 'index.html.twig' %}
+ 
+{% block body %}
+    {# <header class="topbarr" style="background-color: #BB0000 !important; height:50px;width:1250px;margin-left:200px;">
+        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <!-- Contenu de votre barre de navigation si nécessaire -->
+        </nav>
+    </header>
+    <aside class="left-sidebar" data-sidebarbg="skin6">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <!-- User Profile-->
+                    <li>
+                        <!-- User Profile-->
+                        <div class="user-profile d-flex no-block dropdown m-t-20" style="margin-left: 15px;">
+                            <i class="ti-user m-r-5 m-l-5" style="color: black;"></i>
+                              
+                            <div class="user-content hide-menu m-l-10">
+                                    <h5 class="m-b-0 user-name font-medium">Admin </h5>
+                                   
+            
+                             
+                            </div>
+                        </div>
+                        <!-- End User Profile-->
+                    </li>
+              
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                            href="index.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span
+                                class="hide-menu">Dashboard</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                            aria-expanded="false"><i
+                                class="mdi mdi-account-network"></i><span class="hide-menu">Classes</span></a></li>
+                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                           href={{ path('planEtudeIndex') }} aria-expanded="false"><i class="mdi mdi-border-all"></i><span
+                                class="hide-menu">Plan D'Etude</span></a></li>
+                   
+                  
+                </ul>
+
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside> #}
+
+    
+    <div class="container d-flex justify-content-center align-items-center w-100 h-100" style="margin-left: 200px;">
+        <div class="card p-4 shadow-lg" style="width: 100%; max-width: 800px;">
+            <div class="card-body d-flex flex-column">
+                <div class="content p-4">
+                    <h1 class="card-title text-center">Partie {{ step }}</h1>
+
+                    <!-- Progress bar -->
+                    <div class="progress mb-4" style="height: 30px;">
+                        <div class="progress-bar"  role="progressbar" style="width: {{ (step / 6) * 100 }}%;" aria-valuenow="{{ step }}" aria-valuemin="1" aria-valuemax="3">
+                          <p style="color: #fff;font-weight:bold;margin-top:15px;">  {{ step }} / 6</p>
+                        </div>
+                    </div>
+<br><br>
+                    {{ form_start(form) }}
+                    <div class="form-row" >
+                        {% set col_count = 0 %}
+                        {% for child in form %}
+                            {% if child.vars.id not in ['etudiantform1__token', 'etudiantform2__token','etudiantform3__token','etudiantform4__token','etudiantform5__token','etudiantform6__token'] %}            {% if col_count == 0 %}
+                                    <div class="col-md-6">
+                                {% endif %}
+                                
+                                <div class="form-group mb-4">
+                                    <label for="{{ child.vars.id }}" style="margin-left: 18%;">{{ form_label(child) }}</label>
+                                    {{ form_widget(child, {'attr': {'class': 'form-control' ~ (form_errors(child) ? ' is-invalid' : '') ~ ' my-custom-class', 'style': ' margin-left:15%;'}}) }}
+                                </div>
+                                
+                                {% set col_count = col_count + 1 %}
+                                {% if col_count == 5 %}
+                                    </div>
+                                    {% set col_count = 0 %}
+                                {% endif %}
+                            {% else %}
+                                {{ form_widget(child) }}
+                            {% endif %}
+                        {% endfor %}
+                        {% if col_count != 0 %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex justify-content-between mt-4">
+                        {% if step > 1 %}
+                            <a href="{{ path('app_etudiant_step', {'step': step - 1, 'id': id}) }}" class="btn btn-secondary">Previous</a>
+                        {% endif %}
+                        <button type="submit" style="border-color:white;color:white;background-color: #dc3545;height:40px;width:80px">Suivant</button>
+                    </div>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <style>
+        .container {
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            max-width: 800px;
+            margin-top: 60px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content {
+            width: 100%;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            margin-bottom: 1rem;
+            padding: 10px;
+        }
+
+        .invalid-feedback {
+            color: #dc3545;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+        }
+
+        .progress {
+            height: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            background-color: #dc3545;
+            transition: width 0.6s ease;
+        }
+    </style>
+{% endblock %}

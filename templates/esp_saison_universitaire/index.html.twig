@@ -1,0 +1,158 @@
+
+
+{% extends 'dashboard/index.html.twig' %}
+
+{% block title %}EspSaisonUniversitaire index{% endblock %}
+
+{% block body %}
+    <h1 style="color: white !important;">Esp Saison Universitaire</h1>
+    <br>
+<div class="row">
+    <div class="search-container">
+        <br>
+            <form id="search-form">
+                <input type="text" id="search-input" placeholder="Rechercher..." style="background-color: #fefaf0 !important; border-radius:10px;">
+                <button type="submit" id="search-button" style="background-color: #BB0000 !important;"><i class="fas fa-search" ></i></button>
+            </form>
+        <br>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <table class="table table-hover" id="esp-saison-table" style="background-color: #fefaf0 !important; border-radius:10px;">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Description</th>
+                    <th>Date Debut</th>
+                    <th>Date Fin</th>
+                    <th>Observation</th>
+                </tr>
+            </thead>
+           <tbody>
+                {% include 'esp_saison_universitaire/search_list.html.twig' with {'esp_saison_universitaires': esp_saison_universitaires} %} 
+           </tbody>
+         </table>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <table class="table" id="second-table" style="background-color: #fefaf0 !important; border-radius:10px;">
+            <thead>
+                <tr>
+                    <th>Saison Id</th>
+                    <th>Code classe</th>
+                    <th>Date demarrage</th>
+                    <th>Annee debut</th>
+                </tr>
+            </thead>
+           <tbody>
+              
+           </tbody>
+         </table>
+                </div>
+            </div>
+          
+         </div>
+        <div class="col-lg-2">
+            <ul class="list-group" style="background-color: #fefaf0 !important; border-radius:10px;" >
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <h5  style="color: #890115 !important;">Traitement liste</h5>
+                </li>
+                 <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <a href="{{ path('app_esp_saison_universitaire_new') }}" class="btn btn-secondary">Ajouter</a>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                <button id="modifier-button" class="btn btn-secondary" disabled>Modifier</button>
+                </li>
+                <li class="list-group-item " style="background-color: #fefaf0 !important; border-radius:10px;">
+                 <button id="supprimer-button" class="btn btn-secondary" disabled>Détails</button>
+                </li> 
+            </ul>
+        </div>
+    </div>
+</div>
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function() {
+            let selectedId = null;
+
+            // Handle search form submission
+            $('#search-form').submit(function(event) {
+                event.preventDefault(); 
+                var searchTerm = $('#search-input').val();
+                $.ajax({
+                    url: '{{ path('app_searchuni') }}', 
+                    type: 'POST',
+                    data: { searchTerm: searchTerm }, 
+                    success: function(response) {
+                        $('#esp-saison-table tbody').html(response); 
+                    }
+                });
+            });
+
+            // Handle row selection
+            $('#esp-saison-table tbody').on('click', 'tr', function() {
+                // Remove previous selection
+                $('#esp-saison-table tbody tr').removeClass('selected-row');
+                
+                // Add selection to the clicked row
+                $(this).addClass('selected-row');
+                
+                // Store the selected ID
+                selectedId = $(this).find('td:first').text();
+
+                // Enable the Modifier and Supprimer buttons
+                $('#modifier-button').prop('disabled', false);
+                $('#supprimer-button').prop('disabled', false);
+                  if (selectedId) {
+            $.ajax({
+                url: '{{ path('app_get_saisons', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId),
+                type: 'GET',
+                success: function(response) {
+                    let rows = '';
+                    if(response.length===0){
+                        rows += `<tr>
+                            <td>Aucune donnée trouvée</td>
+                        </tr>`;
+                        $('#second-table tbody').html(rows);
+                    }
+                    else{
+                    response.forEach(function(saison) {
+                        rows += `<tr>
+                            <td>${saison.id}</td>
+                            <td>${saison.codeClasse}</td>
+                            <td>${saison.dateDemarrage}</td>
+                            <td>${saison.anneeDebut}</td>
+                        </tr>`;
+                    });
+                    $('#second-table tbody').html(rows);
+                    }
+                   
+                    
+                }
+            });
+        }
+            });
+
+            // Handle Modifier button click
+            $('#modifier-button').click(function() {
+                if (selectedId) {
+                    window.location.href = '{{ path('app_esp_saison_universitaire_edit', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId);
+                }
+            });
+
+            // Handle Supprimer button click
+            $('#supprimer-button').click(function() {
+                if (selectedId) {
+                    
+                        window.location.href = '{{ path('app_esp_saison_universitaire_delete', {'id': 'ID_PLACEHOLDER'}) }}'.replace('ID_PLACEHOLDER', selectedId);
+                    
+                }
+            });
+        });
+    </script>
+{% endblock %}
+{% endblock %}

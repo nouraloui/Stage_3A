@@ -1,0 +1,19 @@
+  {% for classe in classes %}
+                        <tr>
+                           
+                            <td>{{ classe.getId() }}</td>
+                            <td>{{ classe.getLibelleCl() }}</td>
+                            <td>{{ classe.getDescriptionCl() }}</td>
+                            <td>{{ classe.getDateCr() ? classe.getDateCr()|date('Y-m-d') : '' }}</td>
+                            <td>{{ classe.getSallePrincipale() }}</td>
+                            <td>{{ classe.getNiveauAccees() }}</td>
+                            <td>{{ classe.getFiliere() }}</td>
+                            <td>{{ classe.getAnneeScolaire() }}</td>
+                            <td>{{ classe.getCodeCl() }}</td>
+                            <td>{{ classe.getCatergorie().value }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="10" class="text-center">No results found</td>
+                        </tr>
+                    {% endfor %}

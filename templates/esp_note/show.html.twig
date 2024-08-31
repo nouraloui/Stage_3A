@@ -1,0 +1,55 @@
+{% extends 'index.html.twig' %}
+
+{% block body %}
+ <style>
+        h1 {
+            text-align: center; /* Centrer le titre */
+            color: #ff0000; /* Rouge */
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+
+    <h1>EspNote</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+                <th>Code Module</th>
+                <td>{{ esp_note.CodeModule }}</td>
+            </tr>
+            <tr>
+                <th>Code Classe</th>
+                <td>{{ esp_note.codeCl }}</td>
+            </tr>
+            <tr>
+                <th>Annee Deb</th>
+                <td>{{ esp_note.AnneeDeb }}</td>
+            </tr>
+            <tr>
+                <th>Id Etudiant</th>
+                <td>{{ esp_note.IdEt }}</td>
+            </tr>
+            <tr>
+                <th>Note Exam</th>
+                <td>{{ esp_note.NoteExam }}</td>
+            </tr>
+            <tr>
+                <th>Note TP</th>
+                <td>{{ esp_note.NoteTP }}</td>
+            </tr>
+            <tr>
+                <th>Note CC</th>
+                <td>{{ esp_note.NoteCC }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_esp_note_index') }}">Retourner à la liste</a>
+               <a href="{{ path('app_esp_note_edit', {'code_module': esp_note.codeModule}) }}" class="btn-esprit">Modifier</a>
+
+    
+
+    {{ include('esp_note/_delete_form.html.twig') }}
+{% endblock %}

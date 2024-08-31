@@ -1,0 +1,105 @@
+{% extends 'index.html.twig' %}
+{% block title %}EspPlanEtude{% endblock %}
+
+{% block body %}
+ 
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Code Module</th>
+                <td>{{ esp_plan_etude.codeModule }}</td>
+            </tr>
+            <tr>
+                <th>Num Panier</th>
+                <td>{{ esp_plan_etude.numPanier }}</td>
+            </tr>
+            <tr>
+                <th>Code CL</th>
+                <td>{{ esp_plan_etude.codeCl }}</td>
+            </tr>
+            <tr>
+                <th>Année Début</th>
+                <td>{{ esp_plan_etude.anneeDeb }}</td>
+            </tr>
+            <tr>
+                <th>Année Fin</th>
+                <td>{{ esp_plan_etude.anneeFin }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ esp_plan_etude.description }}</td>
+            </tr>
+            <tr>
+                <th>Nb Heures</th>
+                <td>{{ esp_plan_etude.nbHeures }}</td>
+            </tr>
+            <tr>
+                <th>Coef</th>
+                <td>{{ esp_plan_etude.coef }}</td>
+            </tr>
+            <tr>
+                <th>Num Semestre</th>
+                <td>{{ esp_plan_etude.numSemestre }}</td>
+            </tr>
+            <tr>
+                <th>Num Période</th>
+                <td>{{ esp_plan_etude.numPeriodfe }}</td>
+            </tr>
+            <tr>
+                <th>Date Début</th>
+                <td>{{ esp_plan_etude.dateDebut ? esp_plan_etude.dateDebut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date Fin</th>
+                <td>{{ esp_plan_etude.dateFin ? esp_plan_etude.dateFin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date Examen</th>
+                <td>{{ esp_plan_etude.dateExamen ? esp_plan_etude.dateExamen|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date Rattrapage</th>
+                <td>{{ esp_plan_etude.dateRattrapage ? esp_plan_etude.dateRattrapage|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nb Horaire Réalisés</th>
+                <td>{{ esp_plan_etude.nbHoraireRealises }}</td>
+            </tr>
+            <tr>
+                <th>A Comptabiliser</th>
+                <td>{{ esp_plan_etude.acomptabiliser }}</td>
+            </tr>
+            <tr>
+                <th>Enseignant</th>
+                <td>{{ esp_plan_etude.idEns }}</td>
+            </tr>
+            <tr>
+                <th>Année Début ESP</th>
+                <td>{{ esp_plan_etude.espAnneeDeb }}</td>
+            </tr>
+            <tr>
+                <th>Salle</th>
+                <td>{{ esp_plan_etude.codeSalle }}</td>
+            </tr>
+            <tr>
+                <th>Deuxième Enseignant</th>
+                <td>{{ esp_plan_etude.idEns2 }}</td>
+            </tr>
+            <tr>
+                <th>Nb Heures Enseignant</th>
+                <td>{{ esp_plan_etude.nbHeuresEns }}</td>
+            </tr>
+            <tr>
+                <th>Nb Heures Deuxième Enseignant</th>
+                <td>{{ esp_plan_etude.nbHeuresEns2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('planEtudeIndex') }}">Retourner à la liste</a>
+
+    <a href="{{ path('planEtudeEdit', {'code_module': esp_plan_etude.codeModule}) }}">Modifier</a>
+
+    {{ include('esp_plan_etude/_delete_form.html.twig') }}
+{% endblock %}

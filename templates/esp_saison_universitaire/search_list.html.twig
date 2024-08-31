@@ -1,0 +1,16 @@
+
+            
+          {% for esp_saison_universitaire in esp_saison_universitaires %}
+            <tr>
+                
+                <td>{{ esp_saison_universitaire.description }}</td>
+                <td>{{ esp_saison_universitaire.dateDebut ? esp_saison_universitaire.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_saison_universitaire.dateFin ? esp_saison_universitaire.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ esp_saison_universitaire.observation }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucune donnée trouvée</td>
+            </tr>
+        {% endfor %}
+       
